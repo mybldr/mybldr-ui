@@ -1,0 +1,23 @@
+{
+  "name": "mybldr-ui",
+  "version": "1.0.0",
+  "description": "myBLDR Component Library",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mybldr/mybldr-ui.git"
+  },
+  "keywords": [
+    "myBLDR",
+    "component",
+    "library"
+  ],
+  "author": "",
+  "bugs": {
+    "url": "https://github.com/mybldr/mybldr-ui/issues"
+  },
+  "homepage": "https://github.com/mybldr/mybldr-ui#readme"
+}
