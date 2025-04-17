@@ -1,19 +1,24 @@
+import "@fontsource/material-icons";
+import "@fontsource/roboto/300.css";
+import "@fontsource/roboto/400.css";
+import "@fontsource/roboto/500.css";
+import "@fontsource/roboto/700.css";
 import type { Preview } from "@storybook/react";
 import { MyBLDRThemeProvider } from "mybldr-ui";
-import React from "react";
-/* snipped for brevity */
 
-export const withMuiTheme = (Story) => (
-  <MyBLDRThemeProvider>
-    <Story />
-  </MyBLDRThemeProvider>
-);
+import { withThemeFromJSXProvider } from "@storybook/addon-themes";
 
-export const decorators = [withMuiTheme];
+export const decorators = [
+  withThemeFromJSXProvider({
+    defaultTheme: "light",
+    Provider: MyBLDRThemeProvider,
+  }),
+];
 
 const preview: Preview = {
   parameters: {
     controls: {
+      expanded: true,
       matchers: {
         color: /(background|color)$/i,
         date: /Date$/i,
