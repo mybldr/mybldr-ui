@@ -4,14 +4,14 @@ import "@fontsource/roboto/400.css";
 import "@fontsource/roboto/500.css";
 import "@fontsource/roboto/700.css";
 import type { Preview } from "@storybook/react";
-import { MyBLDRThemeProvider } from "mybldr-ui";
+import { BldrThemeProvider } from "mybldr-ui";
 
 import { withThemeFromJSXProvider } from "@storybook/addon-themes";
 
 export const decorators = [
   withThemeFromJSXProvider({
     defaultTheme: "light",
-    Provider: MyBLDRThemeProvider,
+    Provider: BldrThemeProvider,
   }),
 ];
 

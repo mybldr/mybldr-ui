@@ -109,7 +109,7 @@ const theme = createTheme({
   },
 });
 
-export const MyBLDRThemeProvider = ({ children }: PropsWithChildren) => {
+export const BldrThemeProvider = ({ children }: PropsWithChildren) => {
   return (
     <ThemeProvider
       theme={{

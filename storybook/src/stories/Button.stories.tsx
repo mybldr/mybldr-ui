@@ -1,20 +1,20 @@
 import type { Meta, StoryObj } from "@storybook/react";
 
-import { MyBLDRButton, MyBLDRButtonProps } from "mybldr-ui";
+import { BldrButton, BldrButtonProps } from "mybldr-ui";
 
 // More on how to set up stories at: https://storybook.js.org/docs/writing-stories#default-export
 const meta = {
   title: "MyBLDRButton",
-  component: MyBLDRButton,
+  component: BldrButton,
   parameters: {
     layout: "centered",
   },
   tags: ["autodocs"],
-} satisfies Meta<MyBLDRButtonProps>;
+} satisfies Meta<BldrButtonProps>;
 
 export default meta;
 
-type Story = StoryObj<MyBLDRButtonProps>;
+type Story = StoryObj<BldrButtonProps>;
 
 export const Contained: Story = {
   args: {

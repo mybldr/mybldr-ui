@@ -1,1 +1,1 @@
-export { Button as MyBLDRButton } from "@mui/material";
+export { Button as BldrButton } from "@mui/material";

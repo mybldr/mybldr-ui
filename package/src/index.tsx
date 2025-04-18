@@ -1,3 +1,3 @@
-export * from "./MyBLDRThemeProvider";
+export * from "./BldrThemeProvider";
 export * from "./forwardedComponents";
-export * from "./forwardedProps";
+export * from "./forwardedTypes";
