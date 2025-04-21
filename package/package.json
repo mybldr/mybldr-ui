@@ -1,5 +1,5 @@
 {
-  "name": "mybldr-ui",
+  "name": "@mybldr/ui",
   "version": "1.0.0",
   "description": "myBLDR Component Library",
   "main": "dist/index.js",
