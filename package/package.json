@@ -57,10 +57,7 @@
       "release": true
     },
     "npm": {
-      "publish": true,
-      "publishConfig": {
-        "access": "public"
-      }
+      "publish": true
     },
     "plugins": {
       "@release-it/conventional-changelog": {
@@ -84,5 +81,8 @@
         }
       }
     }
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }
