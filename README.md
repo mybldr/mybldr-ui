@@ -7,11 +7,10 @@ This repository houses an MUI-wrapper that is used as the base component library
 To get started with the project, clone the repository and install the dependencies:
 
 ```bash
-cd package;
-npm install;
-cd ../storybook;
 npm install;
 ```
+
+Running this command will install packages at the root level (for the monorepo) and also install the packages for the `package` and `storybook` directories.
 
 After installing the necessary dependencies, try building a version of the package locally. This will create a `dist` folder in the package directory, which contains the built version of the package.
 
