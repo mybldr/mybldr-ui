@@ -1,14 +1,11 @@
 import {
   AutocompleteRenderInputParams,
-  Box,
   ChipTypeMap,
   Autocomplete as MuiAutocomplete,
   AutocompleteProps as MuiAutocompleteProps,
-  SxProps,
-  TextField,
-  Typography,
 } from "@mui/material";
 import { useCallback } from "react";
+import { TextField } from "./TextField";
 
 interface AutocompleteProps<
   Value,
@@ -25,7 +22,6 @@ interface AutocompleteProps<
   > {
   label?: string;
   placeholder?: string;
-  containerSx?: SxProps;
 }
 
 export const Autocomplete = <
@@ -37,9 +33,7 @@ export const Autocomplete = <
 >({
   placeholder,
   label,
-  containerSx,
   renderInput,
-  sx,
   ...props
 }: AutocompleteProps<
   Value,
@@ -50,27 +44,16 @@ export const Autocomplete = <
 >) => {
   const defaultRenderInput = useCallback(
     (params: AutocompleteRenderInputParams) => (
-      <TextField placeholder={placeholder} {...params} />
+      <TextField label={label} placeholder={placeholder} {...params} />
     ),
     [placeholder]
   );
 
   return (
-    <Box sx={containerSx}>
-      {label && (
-        <Typography variant="body1" color="text.primary" fontWeight="500">
-          {label}
-        </Typography>
-      )}
-      <MuiAutocomplete
-        {...props}
-        sx={{
-          width: "320px", // Default width provided in Figma, but can be overridden via SX
-          ...sx,
-        }}
-        renderInput={renderInput ?? defaultRenderInput}
-      />
-    </Box>
+    <MuiAutocomplete
+      {...props}
+      renderInput={renderInput ?? defaultRenderInput}
+    />
   );
 };
 
