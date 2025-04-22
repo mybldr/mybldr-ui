@@ -27,7 +27,7 @@
   "dependencies": {
     "@mui/material": "5.16.7",
     "@mui/x-date-pickers": "6.6.0",
-    "rollup": "^4.40.0"
+    "rollup": "4.40.0"
   },
   "peerDependencies": {
     "@emotion/react": "^11.14.0",
@@ -36,22 +36,24 @@
     "react-dom": "^18.3.1"
   },
   "devDependencies": {
-    "@release-it/conventional-changelog": "^10.0.1",
-    "@rollup/plugin-commonjs": "^28.0.3",
-    "@rollup/plugin-node-resolve": "^16.0.1",
-    "@rollup/plugin-terser": "^0.4.4",
-    "@rollup/plugin-typescript": "^12.1.2",
-    "react": "^18.0.0",
-    "react-dom": "^18.3.1",
-    "release-it": "^19.0.1",
-    "rollup-plugin-dts": "^6.2.1",
-    "rollup-plugin-peer-deps-external": "^2.2.4",
-    "tslib": "^2.8.1",
-    "typescript": "^5.8.3"
+    "@release-it/conventional-changelog": "10.0.1",
+    "@rollup/plugin-commonjs": "28.0.3",
+    "@rollup/plugin-node-resolve": "16.0.1",
+    "@rollup/plugin-terser": "0.4.4",
+    "@rollup/plugin-typescript": "12.1.2",
+    "auto-changelog": "2.5.0",
+    "react": "18.0.0",
+    "react-dom": "18.3.1",
+    "release-it": "19.0.1",
+    "rollup-plugin-dts": "6.2.1",
+    "rollup-plugin-peer-deps-external": "2.2.4",
+    "tslib": "2.8.1",
+    "typescript": "5.8.3"
   },
   "release-it": {
     "git": {
-      "commitMessage": "chore: release v${version}"
+      "commitMessage": "chore: release v${version}",
+      "changelog": "npx auto-changelog --stdout --commit-limit false --unreleased --template https://raw.githubusercontent.com/release-it/release-it/main/templates/changelog-compact.hbs"
     },
     "github": {
       "release": true
@@ -59,30 +61,14 @@
     "npm": {
       "publish": true
     },
-    "plugins": {
-      "@release-it/conventional-changelog": {
-        "infile": "CHANGELOG.md",
-        "preset": {
-          "name": "conventionalcommits",
-          "types": [
-            {
-              "type": "feat",
-              "section": "Features"
-            },
-            {
-              "type": "fix",
-              "section": "Bug Fixes"
-            },
-            {
-              "type": "story",
-              "section": "Story Book"
-            }
-          ]
-        }
-      }
+    "hooks": {
+      "after:bump": "npx auto-changelog -p"
     }
   },
   "publishConfig": {
     "access": "public"
+  },
+  "overrides": {
+    "conventional-changelog-conventionalcommits": "8.0.0"
   }
 }
