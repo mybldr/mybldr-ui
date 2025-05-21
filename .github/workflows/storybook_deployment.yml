@@ -1,4 +1,4 @@
-name: CI with OpenID Connect
+name: Storybook Deployment
 
 on:
   push:
