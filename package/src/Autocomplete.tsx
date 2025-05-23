@@ -1,4 +1,5 @@
 import {
+  styled,
   AutocompleteRenderInputParams,
   ChipTypeMap,
   Autocomplete as MuiAutocomplete,
@@ -12,7 +13,7 @@ interface AutocompleteProps<
   Multiple extends boolean | undefined,
   DisableClearable extends boolean | undefined,
   FreeSolo extends boolean | undefined,
-  ChipComponent extends React.ElementType = ChipTypeMap["defaultComponent"]
+  ChipComponent extends React.ElementType = ChipTypeMap["defaultComponent"],
 > extends MuiAutocompleteProps<
     Value,
     Multiple,
@@ -24,12 +25,27 @@ interface AutocompleteProps<
   placeholder?: string;
 }
 
+const StyledAutocomplete = styled(MuiAutocomplete)<any>(() => ({
+  "& .MuiOutlinedInput-root": {
+    padding: "0px",
+  },
+  "& .MuiOutlinedInput-root.MuiInputBase-sizeSmall": {
+    padding: "0px",
+  },
+  "& .MuiOutlinedInput-root .MuiAutocomplete-input": {
+    padding: `8px 12px`,
+  },
+  "& .MuiOutlinedInput-root.MuiInputBase-sizeSmall .MuiAutocomplete-input": {
+    padding: `6px 12px`,
+  },
+}));
+
 export const Autocomplete = <
   Value,
   Multiple extends boolean | undefined,
   DisableClearable extends boolean | undefined,
   FreeSolo extends boolean | undefined,
-  ChipComponent extends React.ElementType = ChipTypeMap["defaultComponent"]
+  ChipComponent extends React.ElementType = ChipTypeMap["defaultComponent"],
 >({
   placeholder,
   label,
@@ -43,14 +59,23 @@ export const Autocomplete = <
   ChipComponent
 >) => {
   const defaultRenderInput = useCallback(
-    (params: AutocompleteRenderInputParams) => (
-      <TextField label={label} placeholder={placeholder} {...params} />
+    ({
+      InputProps,
+      InputLabelProps,
+      ...params
+    }: AutocompleteRenderInputParams) => (
+      <TextField
+        {...params}
+        label={label}
+        placeholder={placeholder}
+        slotProps={{ input: InputProps, inputLabel: InputLabelProps }}
+      />
     ),
-    [placeholder]
+    [placeholder],
   );
 
   return (
-    <MuiAutocomplete
+    <StyledAutocomplete
       {...props}
       renderInput={renderInput ?? defaultRenderInput}
     />
