@@ -5,9 +5,15 @@ import {
   ChipTypeMap,
   Autocomplete as MuiAutocomplete,
   AutocompleteProps as MuiAutocompleteProps,
+  mergeSlotProps,
 } from "@mui/material";
 import { useCallback } from "react";
-import { TextField } from "./TextField";
+import {
+  TEXT_FIELD_PADDING_X,
+  TEXT_FIELD_PADDING_Y,
+  TEXT_FIELD_SMALL_PADDING_Y,
+  TextField,
+} from "./TextField";
 
 export interface AutocompleteProps<
   Value,
@@ -55,6 +61,9 @@ export const Autocomplete = <
         {...params}
         label={label}
         placeholder={placeholder}
+        // MUI Autocomplete uses the deprecated InputProps and InputLabelProps API.
+        // Since the wrapped TextField uses slotProps, the InputProps and InputLabelProps from Autocomplete are ignored.
+        // InputProps and InputLabelProps are passed to their respective slotProp as a workaround.
         slotProps={{ input: InputProps, inputLabel: InputLabelProps }}
       />
     ),
@@ -66,7 +75,8 @@ export const Autocomplete = <
       {...props}
       popupIcon={<KeyboardArrowDown />}
       slotProps={{
-        popper: {
+        ...props.slotProps,
+        popper: mergeSlotProps(props.slotProps?.popper, {
           modifiers: [
             {
               name: "offset",
@@ -75,11 +85,13 @@ export const Autocomplete = <
               },
             },
           ],
-        },
+        }),
       }}
       renderInput={renderInput ?? defaultRenderInput}
       sx={[
         ...(Array.isArray(sx) ? sx : [sx]),
+        // MUI Autocomplete has custom styles for a nested TextField input, so these styles are necessary overrides.
+        // This is done in the `sx` prop because the `styled` utility doesn't handle generic component props.
         {
           "& .MuiOutlinedInput-root": {
             padding: "0px",
@@ -88,11 +100,11 @@ export const Autocomplete = <
             padding: "0px",
           },
           "& .MuiOutlinedInput-root .MuiAutocomplete-input": {
-            padding: `8px 12px`,
+            padding: `${TEXT_FIELD_PADDING_Y}px ${TEXT_FIELD_PADDING_X}px`,
           },
           "& .MuiOutlinedInput-root.MuiInputBase-sizeSmall .MuiAutocomplete-input":
             {
-              padding: `6px 12px`,
+              padding: `${TEXT_FIELD_SMALL_PADDING_Y}px ${TEXT_FIELD_PADDING_X}px`,
             },
         },
       ]}

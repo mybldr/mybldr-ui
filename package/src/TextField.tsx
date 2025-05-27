@@ -7,6 +7,10 @@ import {
 import { mergeSlotProps } from "@mui/material/utils";
 import { FC } from "react";
 
+export const TEXT_FIELD_PADDING_X = 12;
+export const TEXT_FIELD_PADDING_Y = 8;
+export const TEXT_FIELD_SMALL_PADDING_Y = 6;
+
 const StyledTextField = styled(MuiTextField)(({ theme, size }) => ({
   "& .MuiInputLabel-root": {
     color: theme.palette.text.secondary,
@@ -17,7 +21,7 @@ const StyledTextField = styled(MuiTextField)(({ theme, size }) => ({
     color: theme.palette.text.secondary,
   },
   "& .MuiInputBase-input": {
-    padding: `${size === "small" ? 6 : 8}px 12px`,
+    padding: `${size === "small" ? TEXT_FIELD_SMALL_PADDING_Y : TEXT_FIELD_PADDING_Y}px ${TEXT_FIELD_PADDING_X}px`,
   },
   "& .MuiOutlinedInput-notchedOutline": {
     transition: theme.transitions.create([
