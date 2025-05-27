@@ -1,3 +1,4 @@
+import { KeyboardArrowDown } from "@mui/icons-material";
 import {
   styled,
   AutocompleteRenderInputParams,
@@ -8,7 +9,7 @@ import {
 import { useCallback } from "react";
 import { TextField } from "./TextField";
 
-interface AutocompleteProps<
+export interface AutocompleteProps<
   Value,
   Multiple extends boolean | undefined,
   DisableClearable extends boolean | undefined,
@@ -25,21 +26,6 @@ interface AutocompleteProps<
   placeholder?: string;
 }
 
-const StyledAutocomplete = styled(MuiAutocomplete)<any>(() => ({
-  "& .MuiOutlinedInput-root": {
-    padding: "0px",
-  },
-  "& .MuiOutlinedInput-root.MuiInputBase-sizeSmall": {
-    padding: "0px",
-  },
-  "& .MuiOutlinedInput-root .MuiAutocomplete-input": {
-    padding: `8px 12px`,
-  },
-  "& .MuiOutlinedInput-root.MuiInputBase-sizeSmall .MuiAutocomplete-input": {
-    padding: `6px 12px`,
-  },
-}));
-
 export const Autocomplete = <
   Value,
   Multiple extends boolean | undefined,
@@ -50,6 +36,7 @@ export const Autocomplete = <
   placeholder,
   label,
   renderInput,
+  sx,
   ...props
 }: AutocompleteProps<
   Value,
@@ -75,11 +62,40 @@ export const Autocomplete = <
   );
 
   return (
-    <StyledAutocomplete
+    <MuiAutocomplete
       {...props}
+      popupIcon={<KeyboardArrowDown />}
+      slotProps={{
+        popper: {
+          modifiers: [
+            {
+              name: "offset",
+              options: {
+                offset: [0, 8],
+              },
+            },
+          ],
+        },
+      }}
       renderInput={renderInput ?? defaultRenderInput}
+      sx={[
+        ...(Array.isArray(sx) ? sx : [sx]),
+        {
+          "& .MuiOutlinedInput-root": {
+            padding: "0px",
+          },
+          "& .MuiOutlinedInput-root.MuiInputBase-sizeSmall": {
+            padding: "0px",
+          },
+          "& .MuiOutlinedInput-root .MuiAutocomplete-input": {
+            padding: `8px 12px`,
+          },
+          "& .MuiOutlinedInput-root.MuiInputBase-sizeSmall .MuiAutocomplete-input":
+            {
+              padding: `6px 12px`,
+            },
+        },
+      ]}
     />
   );
 };
-
-export type { AutocompleteProps };
