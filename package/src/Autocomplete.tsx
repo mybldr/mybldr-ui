@@ -67,7 +67,7 @@ export const Autocomplete = <
         slotProps={{ input: InputProps, inputLabel: InputLabelProps }}
       />
     ),
-    [placeholder],
+    [placeholder, label],
   );
 
   return (
