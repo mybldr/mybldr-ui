@@ -25,6 +25,7 @@
   },
   "homepage": "https://github.com/mybldr/mybldr-ui#readme",
   "dependencies": {
+    "@mui/icons-material": "7.1.0",
     "@mui/material": "7.1.0",
     "rollup": "4.40.0"
   },
