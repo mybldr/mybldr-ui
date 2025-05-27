@@ -93,12 +93,6 @@ export const Autocomplete = <
         // MUI Autocomplete has custom styles for a nested TextField input, so these styles are necessary overrides.
         // This is done in the `sx` prop because the `styled` utility doesn't handle generic component props.
         {
-          "& .MuiOutlinedInput-root": {
-            padding: "0px",
-          },
-          "& .MuiOutlinedInput-root.MuiInputBase-sizeSmall": {
-            padding: "0px",
-          },
           "& .MuiOutlinedInput-root .MuiAutocomplete-input": {
             padding: `${TEXT_FIELD_PADDING_Y}px ${TEXT_FIELD_PADDING_X}px`,
           },
