@@ -24,7 +24,7 @@ declare module "@mui/material/styles" {
 }
 
 declare module "@mui/material/styles/createTypography" {
-  interface TypographyOptions {
+  interface FontStyle {
     fontWeightSemibold?: number;
   }
 }
@@ -51,7 +51,7 @@ const theme = createTheme({
     },
     text: {
       primary: "#17181A",
-      secondary: "#5D6062",
+      secondary: "#3E4041",
     },
     background: {
       secondary: "#F8F8F8",
@@ -142,7 +142,7 @@ export const BldrThemeProvider = ({ children }: PropsWithChildren) => {
                     "&:hover": {
                       backgroundColor: lighten(
                         theme.palette.secondary.main,
-                        0.8
+                        0.8,
                       ),
                     },
                   },

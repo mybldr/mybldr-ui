@@ -25,8 +25,8 @@
   },
   "homepage": "https://github.com/mybldr/mybldr-ui#readme",
   "dependencies": {
-    "@mui/material": "5.16.7",
-    "@mui/x-date-pickers": "6.6.0",
+    "@mui/icons-material": "7.1.0",
+    "@mui/material": "7.1.0",
     "rollup": "4.40.0"
   },
   "peerDependencies": {
@@ -42,8 +42,8 @@
     "@rollup/plugin-terser": "0.4.4",
     "@rollup/plugin-typescript": "12.1.2",
     "auto-changelog": "2.5.0",
-    "react": "18.0.0",
-    "react-dom": "18.3.1",
+    "react": "^18.0.0",
+    "react-dom": "^18.3.1",
     "release-it": "19.0.1",
     "rollup-plugin-dts": "6.2.1",
     "rollup-plugin-peer-deps-external": "2.2.4",
