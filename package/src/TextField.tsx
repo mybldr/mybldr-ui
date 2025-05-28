@@ -50,13 +50,13 @@ const StyledTextField = styled(MuiTextField)(({ theme, size }) => ({
   },
 }));
 
-export type TextFieldProps = Omit<MuiTextFieldProps, "variant">;
+export type TextFieldProps = MuiTextFieldProps;
 
 export const TextField: FC<TextFieldProps> = (props) => {
   return (
     <StyledTextField
-      {...props}
       variant="outlined"
+      {...props}
       slotProps={{
         ...props.slotProps,
         input: mergeSlotProps(props.slotProps?.input, {
