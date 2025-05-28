@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
 
-import { TextField } from "@mybldr/ui";
+import { TextField } from "./TextField";
 
 const meta = {
   title: "TextField",
