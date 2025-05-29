@@ -68,6 +68,7 @@ export const LoadingDialog: Story = {
   args: {
     disablePortal: true,
     open: true,
+    showLoadingOverlay: true,
     title: "Title",
     subtitle: "Subtitle",
     content: LOREM,
