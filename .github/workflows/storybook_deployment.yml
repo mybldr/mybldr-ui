@@ -32,7 +32,7 @@ jobs:
         uses: azure/CLI@v1
         with:
           inlineScript: |
-            az storage blob upload-batch --account-name bldreastustststorybook --account-key ${{ secrets.AZURE_STORAGE_KEY }} -d '$web' -s storybook/storybook-static
+            az storage blob upload-batch --account-name bldreastustststorybook --account-key ${{ secrets.AZURE_STORAGE_KEY }} -d '$web' -s storybook-static
 
       # Azure logout
       - name: logout
