@@ -28,7 +28,11 @@ export interface DialogProps
     text: string;
   };
   dismissActionText?: string;
-  tertiaryAction?: React.ReactNode;
+  tertiaryAction?: {
+    onClick: () => Promise<void> | void;
+    text: string;
+  };
+  actionDetails?: React.ReactNode;
 }
 
 export const Dialog = ({
@@ -39,7 +43,8 @@ export const Dialog = ({
   actions,
   primaryAction,
   dismissActionText = "Cancel",
-  tertiaryAction = null,
+  tertiaryAction,
+  actionDetails,
   ...props
 }: DialogProps) => {
   return (
@@ -65,7 +70,12 @@ export const Dialog = ({
       {content && <DialogContent>{content}</DialogContent>}
       {children}
       <DialogActions>
-        {tertiaryAction}
+        {actionDetails}
+        {tertiaryAction && (
+          <Button variant="text" onClick={tertiaryAction.onClick}>
+            {tertiaryAction.text}
+          </Button>
+        )}
         <Button
           sx={{ marginLeft: "auto" }}
           variant="outlined"
