@@ -138,6 +138,14 @@ export const BldrThemeProvider = ({ children }: PropsWithChildren) => {
               },
             },
             MuiButton: {
+              styleOverrides: {
+                root: {
+                  boxShadow: "none",
+                  "&:hover": {
+                    boxShadow: "none",
+                  },
+                },
+              },
               variants: [
                 {
                   props: { variant: "contained", color: "secondary" },

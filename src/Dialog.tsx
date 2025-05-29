@@ -1,7 +1,5 @@
 import { Close } from "@mui/icons-material";
 import {
-  Button,
-  ButtonProps,
   Dialog as MuiDialog,
   DialogActions,
   DialogContent,
@@ -9,7 +7,10 @@ import {
   DialogTitle,
   IconButton,
   Typography,
+  Box,
 } from "@mui/material";
+import { useIsPromisePending } from "./useIsPromisePending";
+import { Button, ButtonProps } from "./Button";
 
 export interface DialogProps
   extends Omit<MuiDialogProps, "onClose" | "title" | "content"> {
@@ -33,6 +34,8 @@ export interface DialogProps
     text: string;
   };
   actionDetails?: React.ReactNode;
+  showDivider: boolean;
+  isLoading?: boolean;
 }
 
 export const Dialog = ({
@@ -45,11 +48,17 @@ export const Dialog = ({
   dismissActionText = "Cancel",
   tertiaryAction,
   actionDetails,
+  showDivider,
+  isLoading,
   ...props
 }: DialogProps) => {
+  const [isPending, observePromise] = useIsPromisePending();
+  const isDisabled = isPending || isLoading;
+
   return (
     <MuiDialog {...props}>
       <IconButton
+        disabled={isDisabled}
         aria-label="close"
         onClick={(e) => props.onClose?.(e, "cancelClick")}
         sx={{
@@ -67,17 +76,24 @@ export const Dialog = ({
           {subtitle && <Typography variant="body2">{subtitle}</Typography>}
         </DialogTitle>
       )}
-      {content && <DialogContent>{content}</DialogContent>}
+      {content && (
+        <DialogContent dividers={showDivider}>{content}</DialogContent>
+      )}
       {children}
       <DialogActions>
-        {actionDetails}
         {tertiaryAction && (
-          <Button variant="text" onClick={tertiaryAction.onClick}>
+          <Button
+            disabled={isDisabled}
+            variant="text"
+            onClick={observePromise(tertiaryAction.onClick)}
+          >
             {tertiaryAction.text}
           </Button>
         )}
+        {actionDetails}
+        <Box sx={{ marginRight: "auto" }} />
         <Button
-          sx={{ marginLeft: "auto" }}
+          disabled={isDisabled}
           variant="outlined"
           color="secondary"
           onClick={(e) => props.onClose?.(e, "cancelClick")}
@@ -86,9 +102,10 @@ export const Dialog = ({
         </Button>
         {primaryAction && (
           <Button
+            disabled={isDisabled}
             variant="contained"
             color={primaryAction.color}
-            onClick={primaryAction.onClick}
+            onClick={observePromise(primaryAction.onClick)}
           >
             {primaryAction.text}
           </Button>
