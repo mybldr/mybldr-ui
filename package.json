@@ -1,9 +1,82 @@
 {
-  "devDependencies": {
-    "husky": "^9.1.7"
-  },
+  "name": "@mybldr/ui",
+  "version": "1.1.1",
+  "description": "myBLDR Component Library",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
   "scripts": {
-    "prepare": "husky",
-    "postinstall": "cd package;npm i;cd ../storybook/;npm i;"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "rollup": "rollup -c --bundleConfigAsCjs",
+    "release": "release-it",
+    "storybook": "storybook dev -p 6006",
+    "build-storybook": "storybook build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mybldr/mybldr-ui.git"
+  },
+  "keywords": [
+    "myBLDR",
+    "component",
+    "library"
+  ],
+  "author": "",
+  "bugs": {
+    "url": "https://github.com/mybldr/mybldr-ui/issues"
+  },
+  "homepage": "https://github.com/mybldr/mybldr-ui#readme",
+  "dependencies": {
+    "@emotion/react": "11.14.0",
+    "@emotion/styled": "11.14.0",
+    "@fontsource/roboto": "^5.2.5",
+    "@mui/icons-material": "7.1.0",
+    "@mui/material": "7.1.0",
+    "rollup": "4.40.0"
+  },
+  "peerDependencies": {
+    "react": "^18.0.0",
+    "react-dom": "^18.3.1"
+  },
+  "devDependencies": {
+    "@release-it/conventional-changelog": "10.0.1",
+    "@rollup/plugin-commonjs": "28.0.3",
+    "@rollup/plugin-node-resolve": "16.0.1",
+    "@rollup/plugin-terser": "0.4.4",
+    "@rollup/plugin-typescript": "12.1.2",
+    "@storybook/addon-docs": "^9.0.0",
+    "@storybook/addon-onboarding": "^9.0.0",
+    "@storybook/addon-themes": "^9.0.0",
+    "@storybook/react-vite": "^9.0.0",
+    "auto-changelog": "2.5.0",
+    "react": "^18.0.0",
+    "react-dom": "^18.3.1",
+    "release-it": "19.0.1",
+    "rollup-plugin-dts": "6.2.1",
+    "rollup-plugin-peer-deps-external": "2.2.4",
+    "storybook": "^9.0.0",
+    "tslib": "2.8.1",
+    "typescript": "5.8.3"
+  },
+  "release-it": {
+    "git": {
+      "commitMessage": "chore: release v${version}",
+      "changelog": "npx auto-changelog --stdout --commit-limit false --unreleased --template https://raw.githubusercontent.com/release-it/release-it/main/templates/changelog-compact.hbs"
+    },
+    "github": {
+      "release": true
+    },
+    "npm": {
+      "publish": true
+    },
+    "hooks": {
+      "after:bump": "npx auto-changelog -p"
+    }
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "overrides": {
+    "conventional-changelog-conventionalcommits": "8.0.0"
   }
 }

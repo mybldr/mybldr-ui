@@ -20,10 +20,10 @@ jobs:
           node-version: "18"
 
       - name: Install dependencies
-        run: cd storybook; npm i @mybldr/ui;
+        run: npm i;
 
       - name: Build Storybook
-        run: cd storybook; npm run build-storybook;
+        run: npm run build-storybook;
 
       - uses: azure/login@v2
         with:
