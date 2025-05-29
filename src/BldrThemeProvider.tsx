@@ -29,7 +29,7 @@ declare module "@mui/material/styles/createTypography" {
   }
 }
 
-const theme = createTheme({
+let theme = createTheme({
   palette: {
     primary: {
       main: "#1D6BCD",
@@ -65,6 +65,9 @@ const theme = createTheme({
       gridRowHover: "#E3E4E5",
     },
   },
+});
+
+theme = createTheme(theme, {
   typography: {
     fontFamily: "Roboto",
     fontWeightRegular: 400,
@@ -102,6 +105,7 @@ const theme = createTheme({
     body2: {
       fontSize: "14px",
       lineHeight: "20px",
+      color: theme.palette.text.secondary,
     },
     button: {
       textTransform: "none",
@@ -117,11 +121,12 @@ export const BldrThemeProvider = ({ children }: PropsWithChildren) => {
           ...theme,
           components: {
             MuiDialogTitle: {
+              defaultProps: {
+                component: "h6",
+              },
               styleOverrides: {
                 root: {
-                  fontWeight: 600,
-                  fontSize: "20px",
-                  paddingBottom: "32px",
+                  paddingRight: theme.spacing(8),
                 },
               },
             },
