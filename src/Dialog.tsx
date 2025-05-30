@@ -12,6 +12,11 @@ import {
 } from "@mui/material";
 import { useIsPromisePending } from "./useIsPromisePending";
 import { Button, ButtonProps } from "./Button";
+import { useIsScrollable } from "./useIsScrollable";
+
+export interface DialogAction extends Pick<ButtonProps, "onClick" | "color"> {
+  label: string;
+}
 
 export interface DialogProps
   extends Omit<MuiDialogProps, "onClose" | "title" | "content"> {
@@ -22,19 +27,10 @@ export interface DialogProps
   title?: React.ReactNode;
   subtitle?: React.ReactNode;
   content?: React.ReactNode;
-  onSubmit?: () => Promise<void> | void;
-  primaryAction?: {
-    color?: ButtonProps["color"];
-    onClick: () => Promise<void> | void;
-    text: string;
-  };
+  primaryAction?: DialogAction;
   dismissActionText?: string;
-  tertiaryAction?: {
-    onClick: () => Promise<void> | void;
-    text: string;
-  };
+  tertiaryAction?: DialogAction;
   actionDetails?: React.ReactNode;
-  showDivider: boolean;
   showLoadingOverlay?: boolean;
   isLoading?: boolean;
 }
@@ -48,12 +44,12 @@ export const Dialog = ({
   dismissActionText = "Cancel",
   tertiaryAction,
   actionDetails,
-  showDivider,
   showLoadingOverlay,
   isLoading,
   ...props
 }: DialogProps) => {
   const [isPending, observePromise] = useIsPromisePending();
+  const [isScrollable, ref] = useIsScrollable();
   const isLoadingOrPending = isPending || isLoading;
 
   return (
@@ -96,7 +92,15 @@ export const Dialog = ({
         </DialogTitle>
       )}
       {content && (
-        <DialogContent dividers={showDivider}>{content}</DialogContent>
+        <DialogContent
+          ref={ref}
+          dividers={isScrollable}
+          sx={(theme) => ({
+            transition: theme.transitions.create(["padding"]),
+          })}
+        >
+          {content}
+        </DialogContent>
       )}
       {children}
       <DialogActions>
@@ -104,9 +108,14 @@ export const Dialog = ({
           <Button
             disabled={isLoadingOrPending}
             variant="text"
-            onClick={observePromise(tertiaryAction.onClick)}
+            {...tertiaryAction}
+            onClick={
+              tertiaryAction.onClick
+                ? observePromise(tertiaryAction.onClick)
+                : tertiaryAction.onClick
+            }
           >
-            {tertiaryAction.text}
+            {tertiaryAction.label}
           </Button>
         )}
         {actionDetails}
@@ -123,10 +132,14 @@ export const Dialog = ({
           <Button
             disabled={isLoadingOrPending}
             variant="contained"
-            color={primaryAction.color}
-            onClick={observePromise(primaryAction.onClick)}
+            {...primaryAction}
+            onClick={
+              primaryAction.onClick
+                ? observePromise(primaryAction.onClick)
+                : primaryAction.onClick
+            }
           >
-            {primaryAction.text}
+            {primaryAction.label}
           </Button>
         )}
       </DialogActions>

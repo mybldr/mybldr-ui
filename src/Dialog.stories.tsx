@@ -35,7 +35,7 @@ export const BaseDialog: Story = {
     actionDetails: "Details",
     primaryAction: {
       onClick: () => alert("Clicked!"),
-      text: "Submit",
+      label: "Submit",
     },
   },
 };
@@ -53,7 +53,6 @@ export const ScrollDialog: Story = {
     open: true,
     title: "Title",
     content: Array(5).fill(LOREM).join(" "),
-    showDivider: true,
   },
 };
 
@@ -75,12 +74,12 @@ export const LoadingDialog: Story = {
     primaryAction: {
       onClick: async () =>
         await new Promise((resolve) => setTimeout(resolve, 1000)),
-      text: "Submit",
+      label: "Submit",
     },
     tertiaryAction: {
       onClick: async () =>
         await new Promise((resolve) => setTimeout(resolve, 1000)),
-      text: "Tertiary",
+      label: "Tertiary",
     },
   },
 };
