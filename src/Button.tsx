@@ -4,7 +4,7 @@ import {
 } from "@mui/material";
 import { useIsPromisePending } from "./useIsPromisePending";
 
-export type ButtonProps = MuiButtonProps;
+export interface ButtonProps extends MuiButtonProps {}
 
 export const Button = ({ loading, onClick, ...props }: ButtonProps) => {
   const [isPending, observePromise] = useIsPromisePending();

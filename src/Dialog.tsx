@@ -22,7 +22,6 @@ export interface DialogProps
   title?: React.ReactNode;
   subtitle?: React.ReactNode;
   content?: React.ReactNode;
-  actions?: ButtonProps[];
   onSubmit?: () => Promise<void> | void;
   primaryAction?: {
     color?: ButtonProps["color"];
@@ -45,7 +44,6 @@ export const Dialog = ({
   subtitle,
   children,
   content,
-  actions,
   primaryAction,
   dismissActionText = "Cancel",
   tertiaryAction,
