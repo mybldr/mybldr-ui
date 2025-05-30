@@ -19,7 +19,6 @@ export const AutocompleteWithLabel: Story = {
   argTypes: {
     sx: {
       table: {
-        // Hide sx from control panel
         disable: true,
       },
     },

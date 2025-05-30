@@ -17,6 +17,29 @@ export const decorators = [
 const preview: Preview = {
   parameters: {
     controls: {
+      sort: "requiredFirst",
+      exclude: new RegExp(
+        [
+          // on[Something] handlers
+          "on[A-Z].*",
+          // aria labels
+          "aria-.*",
+          // Customization props
+          ".*[Cc]omponent",
+          ".*Props",
+          "slots",
+          "sx",
+          "ref",
+          ".*Ref",
+          "classes",
+          "style",
+          "render[A-Z].*",
+          "unstable_.*",
+          "id",
+        ]
+          .map((selector) => `^${selector}$`)
+          .join("|"),
+      ),
       matchers: {
         color: /(background|color)$/i,
         date: /Date$/i,

@@ -5,5 +5,7 @@ export * from "@mui/material";
 // native MUI components
 import { Autocomplete, AutocompleteProps } from "./Autocomplete";
 import { TextField, TextFieldProps } from "./TextField";
-export { Autocomplete, TextField };
-export type { AutocompleteProps, TextFieldProps };
+import { Dialog, DialogProps } from "./Dialog";
+import { Button, ButtonProps } from "./Button";
+export { Autocomplete, TextField, Dialog, Button };
+export type { AutocompleteProps, TextFieldProps, DialogProps, ButtonProps };
