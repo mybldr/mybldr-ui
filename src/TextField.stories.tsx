@@ -39,3 +39,13 @@ export const TextFieldWithError: Story = {
     helperText: "Something is wrong",
   },
 };
+
+export const TextFieldMultiline: Story = {
+  args: {
+    label: "Label",
+    placeholder: "Placeholder",
+    multiline: true,
+    maxRows: 5,
+    minRows: 2,
+  },
+};

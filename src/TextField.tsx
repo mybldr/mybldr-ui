@@ -34,12 +34,14 @@ const StyledTextField = styled(MuiTextField)(({ theme, size, error }) => ({
   "& .MuiInputLabel-root.Mui-focused, & .MuiInputLabel-root.Mui-error": {
     color: theme.palette.text.secondary,
   },
-  // Internal input padding
+  // Internal input padding and font size
   "& .MuiInputBase-input": {
     padding: `${GET_TEXT_FIELD_PADDING(size)}px ${TEXT_FIELD_PADDING_X}px`,
     paddingLeft: error ? 0 : TEXT_FIELD_PADDING_X,
+    fontSize: size === "small" ? "14px" : "16px",
   },
   "& .MuiInputBase-root": {
+    padding: 0,
     paddingLeft: error ? TEXT_FIELD_PADDING_X : 0,
   },
   // Add transition to border component
