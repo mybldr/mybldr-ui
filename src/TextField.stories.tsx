@@ -15,10 +15,18 @@ export default meta;
 
 type Story = StoryObj<typeof TextField>;
 
-export const TextFieldWithLabel: Story = {
+export const BaseTextField: Story = {
   args: {
     label: "Label",
     placeholder: "Placeholder",
-    size: "medium",
+  },
+};
+
+export const TextFieldWithError: Story = {
+  args: {
+    label: "Label",
+    placeholder: "Placeholder",
+    error: true,
+    helperText: "Something is wrong",
   },
 };

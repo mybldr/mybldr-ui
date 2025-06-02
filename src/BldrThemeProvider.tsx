@@ -38,16 +38,16 @@ let theme = createTheme({
       main: "#555A66",
     },
     error: {
-      main: "#A50722",
+      main: "#C8102E",
     },
     success: {
-      main: "#177802",
+      main: "#198402",
     },
     info: {
       main: "#1E7EC3",
     },
     warning: {
-      main: "#DC6803",
+      main: "#F79009",
     },
     text: {
       primary: "#17181A",
@@ -60,6 +60,7 @@ let theme = createTheme({
     border: {
       primary: "#878A8D",
       secondary: "#C3C6CC",
+      error: "#D42F48",
     },
     util: {
       gridRowHover: "#E3E4E5",
@@ -120,6 +121,21 @@ export const BldrThemeProvider = ({ children }: PropsWithChildren) => {
         [THEME_ID]: {
           ...theme,
           components: {
+            MuiFormHelperText: {
+              styleOverrides: {
+                root: {
+                  marginLeft: "0px",
+                },
+              },
+            },
+            MuiInputLabel: {
+              styleOverrides: {
+                root: {
+                  color: theme.palette.text.secondary,
+                  transform: "translate(0, -1.6em)",
+                },
+              },
+            },
             MuiDialogTitle: {
               defaultProps: {
                 component: "h6",
