@@ -9,6 +9,15 @@ const meta = {
     layout: "centered",
   },
   tags: ["autodocs"],
+  argTypes: {
+    size: {
+      control: {
+        type: "radio",
+      },
+      // Override options because docgen doesn't pick up "large" override
+      options: ["small", "medium", "large"],
+    },
+  },
 } satisfies Meta<typeof TextField>;
 
 export default meta;

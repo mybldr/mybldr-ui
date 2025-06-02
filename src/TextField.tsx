@@ -5,39 +5,45 @@ import {
   TextField as MuiTextField,
   alpha,
   InputAdornment,
-  Tooltip,
-  lighten,
 } from "@mui/material";
 import { mergeSlotProps } from "@mui/material/utils";
 import { FC } from "react";
 
+declare module "@mui/material/TextField" {
+  interface TextFieldPropsSizeOverrides {
+    large: true;
+  }
+}
+
 export const TEXT_FIELD_PADDING_X = 12;
-export const TEXT_FIELD_PADDING_Y = 8;
-export const TEXT_FIELD_SMALL_PADDING_Y = 6;
+export const GET_TEXT_FIELD_PADDING = (
+  size: "small" | "medium" | "large" = "medium",
+) => {
+  switch (size) {
+    case "small":
+      return 6;
+    case "large":
+      return 10;
+    default:
+      return 8;
+  }
+};
 
 const StyledTextField = styled(MuiTextField)(({ theme, size, error }) => ({
-  // Prevent label from highlighting when focused.
-  "& .MuiInputLabel-root.Mui-focused": {
+  // Prevent label from highlighting in different states
+  "& .MuiInputLabel-root.Mui-focused, & .MuiInputLabel-root.Mui-error": {
     color: theme.palette.text.secondary,
   },
-  "& .MuiInputLabel-root.Mui-error": {
-    color: theme.palette.text.secondary,
-  },
-  // Internal input padding.
+  // Internal input padding
   "& .MuiInputBase-input": {
-    padding: `${size === "small" ? TEXT_FIELD_SMALL_PADDING_Y : TEXT_FIELD_PADDING_Y}px ${TEXT_FIELD_PADDING_X}px`,
+    padding: `${GET_TEXT_FIELD_PADDING(size)}px ${TEXT_FIELD_PADDING_X}px`,
     paddingLeft: error ? 0 : TEXT_FIELD_PADDING_X,
   },
-  // Remove padding from root component.
-  // Also prevents Autocomplete from overriding padding.
-  "& .MuiOutlinedInput-root": {
-    padding: "0px",
+  "& .MuiInputBase-root": {
     paddingLeft: error ? TEXT_FIELD_PADDING_X : 0,
   },
-  "& .MuiOutlinedInput-root.MuiInputBase-sizeSmall": {
-    padding: "0px",
-  },
   // Add transition to border component
+  // Adjust top because legend is hidden
   "& .MuiOutlinedInput-notchedOutline": {
     top: "0px",
     transition: theme.transitions.create([
@@ -46,6 +52,7 @@ const StyledTextField = styled(MuiTextField)(({ theme, size, error }) => ({
       "box-shadow",
     ]),
   },
+  // Hide legend to avoid pixel gap on border
   "& .MuiOutlinedInput-notchedOutline legend": {
     display: "none",
   },

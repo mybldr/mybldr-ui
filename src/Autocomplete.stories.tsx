@@ -9,24 +9,25 @@ const meta = {
     layout: "centered",
   },
   tags: ["autodocs"],
+  argTypes: {
+    size: {
+      control: {
+        type: "radio",
+      },
+      // Override options because docgen doesn't pick up "large" override
+      options: ["small", "medium", "large"],
+    },
+  },
 } satisfies Meta<typeof Autocomplete>;
 
 export default meta;
 
 type Story = StoryObj<typeof Autocomplete>;
 
-export const AutocompleteWithLabel: Story = {
-  argTypes: {
-    sx: {
-      table: {
-        disable: true,
-      },
-    },
-  },
+export const BaseAutocomplete: Story = {
   args: {
     sx: { width: "300px" },
     label: "Label",
-    size: "medium",
     placeholder: "Placeholder",
     options: [
       {

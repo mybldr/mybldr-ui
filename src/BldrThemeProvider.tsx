@@ -121,6 +121,7 @@ export const BldrThemeProvider = ({ children }: PropsWithChildren) => {
         [THEME_ID]: {
           ...theme,
           components: {
+            // Adjust helper text positioning for TextField
             MuiFormHelperText: {
               styleOverrides: {
                 root: {
@@ -128,6 +129,7 @@ export const BldrThemeProvider = ({ children }: PropsWithChildren) => {
                 },
               },
             },
+            // Override translate and scale transform with custom translate
             MuiInputLabel: {
               styleOverrides: {
                 root: {
@@ -142,14 +144,14 @@ export const BldrThemeProvider = ({ children }: PropsWithChildren) => {
               },
               styleOverrides: {
                 root: {
-                  paddingRight: theme.spacing(8),
+                  paddingRight: "64px",
                 },
               },
             },
             MuiDialogActions: {
               styleOverrides: {
                 root: {
-                  padding: theme.spacing(1.5),
+                  padding: "12px",
                 },
               },
             },
@@ -177,13 +179,6 @@ export const BldrThemeProvider = ({ children }: PropsWithChildren) => {
                   },
                 },
               ],
-            },
-            MuiButtonGroup: {
-              styleOverrides: {
-                root: {
-                  boxShadow: "none",
-                },
-              },
             },
           },
         },
