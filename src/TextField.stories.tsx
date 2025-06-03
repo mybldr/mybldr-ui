@@ -49,3 +49,18 @@ export const TextFieldMultiline: Story = {
     minRows: 2,
   },
 };
+
+export const TextFieldImplied: Story = {
+  decorators: [
+    (story) => (
+      <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+        {story()}
+      </div>
+    ),
+  ],
+  args: {
+    implied: true,
+    label: "Label",
+    placeholder: "Placeholder",
+  },
+};

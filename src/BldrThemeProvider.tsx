@@ -1,4 +1,10 @@
-import { createTheme, lighten, THEME_ID, ThemeProvider } from "@mui/material";
+import {
+  createTheme,
+  lighten,
+  THEME_ID,
+  ThemeProvider,
+  formLabelClasses,
+} from "@mui/material";
 import { PropsWithChildren } from "react";
 
 declare module "@mui/material/styles" {
@@ -60,7 +66,6 @@ let theme = createTheme({
     border: {
       primary: "#878A8D",
       secondary: "#C3C6CC",
-      error: "#D42F48",
     },
     util: {
       gridRowHover: "#E3E4E5",
@@ -133,8 +138,18 @@ export const BldrThemeProvider = ({ children }: PropsWithChildren) => {
             MuiInputLabel: {
               styleOverrides: {
                 root: {
-                  color: theme.palette.text.secondary,
                   transform: "translate(0, -1.6em)",
+                },
+              },
+            },
+            // Prevent label from changing color based on state
+            MuiFormLabel: {
+              styleOverrides: {
+                root: {
+                  [`&.${formLabelClasses.error}, &.${formLabelClasses.focused}`]:
+                    {
+                      color: theme.palette.text.secondary,
+                    },
                 },
               },
             },
