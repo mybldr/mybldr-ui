@@ -1,19 +1,26 @@
 import { KeyboardArrowDown } from "@mui/icons-material";
 import {
-  styled,
   AutocompleteRenderInputParams,
   ChipTypeMap,
   Autocomplete as MuiAutocomplete,
   AutocompleteProps as MuiAutocompleteProps,
+  inputBaseClasses,
   mergeSlotProps,
+  outlinedInputClasses,
+  autocompleteClasses,
 } from "@mui/material";
 import { useCallback } from "react";
 import {
-  TEXT_FIELD_PADDING_X,
-  TEXT_FIELD_PADDING_Y,
-  TEXT_FIELD_SMALL_PADDING_Y,
   TextField,
+  GET_TEXT_FIELD_PADDING,
+  TEXT_FIELD_PADDING_X,
 } from "./TextField";
+
+declare module "@mui/material/Autocomplete" {
+  interface AutocompletePropsSizeOverrides {
+    large: true;
+  }
+}
 
 export interface AutocompleteProps<
   Value,
@@ -93,12 +100,14 @@ export const Autocomplete = <
         // MUI Autocomplete has custom styles for a nested TextField input, so these styles are necessary overrides.
         // This is done in the `sx` prop because the `styled` utility doesn't handle generic component props.
         {
-          "& .MuiOutlinedInput-root .MuiAutocomplete-input": {
-            padding: `${TEXT_FIELD_PADDING_Y}px ${TEXT_FIELD_PADDING_X}px`,
-          },
-          "& .MuiOutlinedInput-root.MuiInputBase-sizeSmall .MuiAutocomplete-input":
+          [`& .${outlinedInputClasses.root}, & .${outlinedInputClasses.root}.${inputBaseClasses.sizeSmall}`]:
             {
-              padding: `${TEXT_FIELD_SMALL_PADDING_Y}px ${TEXT_FIELD_PADDING_X}px`,
+              padding: "0px",
+              paddingRight: "39px",
+            },
+          [`& .${outlinedInputClasses.root} .${autocompleteClasses.input}, & .${outlinedInputClasses.root}.${inputBaseClasses.sizeSmall} .${autocompleteClasses.input}`]:
+            {
+              padding: `${GET_TEXT_FIELD_PADDING(props.size)}px ${TEXT_FIELD_PADDING_X}px`,
             },
         },
       ]}

@@ -25,7 +25,7 @@ const preview: Preview = {
           // aria labels
           "aria-.*",
           // Customization props
-          ".*[Cc]omponent",
+          ".*[Cc]omponents?",
           ".*Props",
           "slots",
           "sx",

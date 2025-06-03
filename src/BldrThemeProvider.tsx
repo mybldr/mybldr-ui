@@ -1,4 +1,10 @@
-import { createTheme, lighten, THEME_ID, ThemeProvider } from "@mui/material";
+import {
+  createTheme,
+  lighten,
+  THEME_ID,
+  ThemeProvider,
+  formLabelClasses,
+} from "@mui/material";
 import { PropsWithChildren } from "react";
 
 declare module "@mui/material/styles" {
@@ -38,16 +44,16 @@ let theme = createTheme({
       main: "#555A66",
     },
     error: {
-      main: "#A50722",
+      main: "#C8102E",
     },
     success: {
-      main: "#177802",
+      main: "#198402",
     },
     info: {
       main: "#1E7EC3",
     },
     warning: {
-      main: "#DC6803",
+      main: "#F79009",
     },
     text: {
       primary: "#17181A",
@@ -120,20 +126,47 @@ export const BldrThemeProvider = ({ children }: PropsWithChildren) => {
         [THEME_ID]: {
           ...theme,
           components: {
+            // Adjust helper text positioning for TextField
+            MuiFormHelperText: {
+              styleOverrides: {
+                root: {
+                  marginLeft: "0px",
+                },
+              },
+            },
+            // Override translate and scale transform with custom translate
+            MuiInputLabel: {
+              styleOverrides: {
+                root: {
+                  transform: "translate(0, -1.6em)",
+                },
+              },
+            },
+            // Prevent label from changing color based on state
+            MuiFormLabel: {
+              styleOverrides: {
+                root: {
+                  [`&.${formLabelClasses.error}, &.${formLabelClasses.focused}`]:
+                    {
+                      color: theme.palette.text.secondary,
+                    },
+                },
+              },
+            },
             MuiDialogTitle: {
               defaultProps: {
                 component: "h6",
               },
               styleOverrides: {
                 root: {
-                  paddingRight: theme.spacing(8),
+                  paddingRight: "64px",
                 },
               },
             },
             MuiDialogActions: {
               styleOverrides: {
                 root: {
-                  padding: theme.spacing(1.5),
+                  padding: "12px",
                 },
               },
             },
@@ -161,13 +194,6 @@ export const BldrThemeProvider = ({ children }: PropsWithChildren) => {
                   },
                 },
               ],
-            },
-            MuiButtonGroup: {
-              styleOverrides: {
-                root: {
-                  boxShadow: "none",
-                },
-              },
             },
           },
         },
