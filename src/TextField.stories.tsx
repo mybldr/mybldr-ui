@@ -42,6 +42,7 @@ export const TextFieldWithError: Story = {
 
 export const TextFieldMultiline: Story = {
   args: {
+    sx: { width: "300px" },
     label: "Label",
     placeholder: "Placeholder",
     multiline: true,
