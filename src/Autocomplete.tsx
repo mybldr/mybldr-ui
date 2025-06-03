@@ -4,7 +4,10 @@ import {
   ChipTypeMap,
   Autocomplete as MuiAutocomplete,
   AutocompleteProps as MuiAutocompleteProps,
+  inputBaseClasses,
   mergeSlotProps,
+  outlinedInputClasses,
+  autocompleteClasses,
 } from "@mui/material";
 import { useCallback } from "react";
 import {
@@ -97,12 +100,12 @@ export const Autocomplete = <
         // MUI Autocomplete has custom styles for a nested TextField input, so these styles are necessary overrides.
         // This is done in the `sx` prop because the `styled` utility doesn't handle generic component props.
         {
-          "& .MuiOutlinedInput-root, & .MuiOutlinedInput-root.MuiInputBase-sizeSmall":
+          [`& .${outlinedInputClasses.root}, & .${outlinedInputClasses.root}.${inputBaseClasses.sizeSmall}`]:
             {
               padding: "0px",
               paddingRight: "39px",
             },
-          "& .MuiOutlinedInput-root .MuiAutocomplete-input, & .MuiOutlinedInput-root.MuiInputBase-sizeSmall .MuiAutocomplete-input":
+          [`& .${outlinedInputClasses.root} .${autocompleteClasses.input}, & .${outlinedInputClasses.root}.${inputBaseClasses.sizeSmall} .${autocompleteClasses.input}`]:
             {
               padding: `${GET_TEXT_FIELD_PADDING(props.size)}px ${TEXT_FIELD_PADDING_X}px`,
             },
