@@ -27,6 +27,12 @@ declare module "@mui/material/styles" {
     secondary: string;
     tertiary: string;
   }
+  interface TypeText {
+    primary: string;
+    secondary: string;
+    disabled: string;
+    placeholder: string;
+  }
 }
 
 declare module "@mui/material/styles/createTypography" {
@@ -58,6 +64,7 @@ let theme = createTheme({
     text: {
       primary: "#17181A",
       secondary: "#3E4041",
+      placeholder: "#636769",
     },
     background: {
       secondary: "#F8F8F8",
@@ -126,6 +133,16 @@ export const BldrThemeProvider = ({ children }: PropsWithChildren) => {
         [THEME_ID]: {
           ...theme,
           components: {
+            MuiOutlinedInput: {
+              styleOverrides: {
+                input: {
+                  "&::placeholder": {
+                    color: theme.palette.text.placeholder,
+                    opacity: 1,
+                  },
+                },
+              },
+            },
             // Adjust helper text positioning for TextField
             MuiFormHelperText: {
               styleOverrides: {
