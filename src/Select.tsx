@@ -1,4 +1,4 @@
-import { MenuItem, mergeSlotProps } from "@mui/material";
+import { MenuItem, mergeSlotProps, Typography } from "@mui/material";
 import { TextField, TextFieldProps } from "./TextField";
 import { KeyboardArrowDown } from "@mui/icons-material";
 
@@ -18,6 +18,13 @@ export const Select = <Value extends string | number>({
       ...props.slotProps,
       select: mergeSlotProps(props.slotProps?.select, {
         IconComponent: KeyboardArrowDown,
+        displayEmpty: Boolean(placeholder),
+        renderValue:
+          props.value === ""
+            ? () => (
+                <Typography color="textPlaceholder">{placeholder}</Typography>
+              )
+            : undefined,
       }),
     }}
   >

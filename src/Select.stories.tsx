@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react";
 
-import { Select } from "./Select";
+import { Select, SelectProps } from "./Select";
+import { useState } from "react";
 
 const meta = {
   title: "Select",
@@ -15,7 +16,21 @@ export default meta;
 
 type Story = StoryObj<typeof Select>;
 
+const ControlledSelect = (props: SelectProps<any>) => {
+  const [value, setValue] = useState<any>("");
+  return (
+    <Select
+      {...props}
+      value={value}
+      onChange={(e) => {
+        setValue(Number(e.target.value));
+      }}
+    />
+  );
+};
+
 export const BaseSelect: Story = {
+  render: (props) => <ControlledSelect {...props} />,
   args: {
     label: "Label",
     placeholder: "Placeholder",
