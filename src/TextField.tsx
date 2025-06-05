@@ -41,7 +41,7 @@ const StyledTextField = styled(MuiTextField, {
     paddingLeft: error ? 0 : TEXT_FIELD_PADDING_X,
     fontSize: size === "small" ? "14px" : "16px",
     lineHeight: size === "small" ? "20px" : "24px",
-    height: size === "small" ? "20px" : "24px",
+    minHeight: size === "small" ? "20px" : "24px",
   },
   [`& .${inputBaseClasses.root}`]: {
     // Removes padding from root when `multiline` is true

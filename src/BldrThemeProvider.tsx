@@ -42,6 +42,9 @@ declare module "@mui/material/styles/createTypography" {
 }
 
 let theme = createTheme({
+  typography: {
+    fontFamily: '"Inter","Helvetica",sans-serif',
+  },
   palette: {
     primary: {
       main: "#1D6BCD",
@@ -82,7 +85,6 @@ let theme = createTheme({
 
 theme = createTheme(theme, {
   typography: {
-    fontFamily: "Roboto",
     fontWeightRegular: 400,
     fontWeightMedium: 500,
     fontWeightSemibold: 600,
