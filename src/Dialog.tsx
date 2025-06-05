@@ -21,14 +21,14 @@ export interface DialogAction extends Pick<ButtonProps, "onClick" | "color"> {
 export interface DialogProps
   extends Omit<MuiDialogProps, "onClose" | "title" | "content"> {
   onClose: (
-    event?: any,
-    reason?: "backdropClick" | "escapeKeyDown" | "cancelClick",
+    event: any,
+    reason: "backdropClick" | "escapeKeyDown" | "cancelClick",
   ) => void;
   title?: React.ReactNode;
   subtitle?: React.ReactNode;
   content?: React.ReactNode;
   primaryAction?: DialogAction;
-  dismissActionText?: string;
+  dismissActionLabel?: string;
   tertiaryAction?: DialogAction;
   actionDetails?: React.ReactNode;
   showLoadingOverlay?: boolean;
@@ -41,7 +41,7 @@ export const Dialog = ({
   children,
   content,
   primaryAction,
-  dismissActionText = "Cancel",
+  dismissActionLabel = "Cancel",
   tertiaryAction,
   actionDetails,
   showLoadingOverlay,
@@ -129,7 +129,7 @@ export const Dialog = ({
           color="secondary"
           onClick={(e) => props.onClose?.(e, "cancelClick")}
         >
-          {dismissActionText}
+          {dismissActionLabel}
         </Button>
         {primaryAction && (
           <Button
