@@ -156,6 +156,7 @@ export const BldrThemeProvider = ({ children }: PropsWithChildren) => {
               styleOverrides: {
                 root: {
                   transform: "translate(0, -1.6em)",
+                  fontWeight: theme.typography.fontWeightMedium,
                 },
               },
             },
