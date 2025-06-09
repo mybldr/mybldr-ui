@@ -78,12 +78,12 @@ export const Dialog = ({
         onClick={(e) => props.onClose?.(e, "cancelClick")}
         sx={{
           position: "absolute",
-          right: 10,
-          top: 10,
+          right: 12,
+          top: 12,
           color: "black",
         }}
       >
-        <Close />
+        <Close fontSize="inherit" />
       </IconButton>
       {title && (
         <DialogTitle>

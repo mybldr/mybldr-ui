@@ -65,7 +65,7 @@ let theme = createTheme({
       main: "#F79009",
     },
     text: {
-      primary: "#17181A",
+      primary: "#0B0C0D",
       secondary: "#3E4041",
       placeholder: "#636769",
     },
@@ -135,6 +135,16 @@ export const BldrThemeProvider = ({ children }: PropsWithChildren) => {
         [THEME_ID]: {
           ...theme,
           components: {
+            MuiIconButton: {
+              variants: [
+                {
+                  props: { size: "medium" },
+                  style: {
+                    fontSize: "1.25rem",
+                  },
+                },
+              ],
+            },
             MuiOutlinedInput: {
               styleOverrides: {
                 input: {
@@ -180,6 +190,7 @@ export const BldrThemeProvider = ({ children }: PropsWithChildren) => {
               styleOverrides: {
                 root: {
                   paddingRight: "64px",
+                  fontWeight: theme.typography.fontWeightSemibold,
                 },
               },
             },
@@ -187,6 +198,13 @@ export const BldrThemeProvider = ({ children }: PropsWithChildren) => {
               styleOverrides: {
                 root: {
                   padding: "12px",
+                },
+              },
+            },
+            MuiDialogContent: {
+              styleOverrides: {
+                root: {
+                  padding: "24px",
                 },
               },
             },
