@@ -136,6 +136,9 @@ export const BldrThemeProvider = ({ children }: PropsWithChildren) => {
           ...theme,
           components: {
             MuiIconButton: {
+              defaultProps: {
+                color: "secondary",
+              },
               variants: [
                 {
                   props: { size: "medium" },
@@ -167,8 +170,9 @@ export const BldrThemeProvider = ({ children }: PropsWithChildren) => {
             MuiInputLabel: {
               styleOverrides: {
                 root: {
-                  transform: "translate(0, -1.6em)",
+                  transform: "translate(0, -100%) translate(0, -4px)",
                   fontWeight: theme.typography.fontWeightMedium,
+                  lineHeight: theme.typography.body1.lineHeight,
                 },
               },
             },
