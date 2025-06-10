@@ -87,7 +87,11 @@ export const Dialog = ({
       {title && (
         <DialogTitle>
           {title}
-          {subtitle && <Typography variant="body2">{subtitle}</Typography>}
+          {subtitle && (
+            <Typography variant="body2" sx={{ mt: "4px" }}>
+              {subtitle}
+            </Typography>
+          )}
         </DialogTitle>
       )}
       {content && (
@@ -102,7 +106,7 @@ export const Dialog = ({
         </DialogContent>
       )}
       {children}
-      <DialogActions>
+      <DialogActions sx={{ pt: isScrollable ? undefined : "4px" }}>
         {tertiaryAction && (
           <Button
             disabled={isLoadingOrPending}
