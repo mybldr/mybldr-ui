@@ -50,7 +50,7 @@ let theme = createTheme({
       main: "#1D6BCD",
     },
     secondary: {
-      main: "#555A66",
+      main: "#75787B",
     },
     error: {
       main: "#C8102E",
