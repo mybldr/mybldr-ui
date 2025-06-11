@@ -50,7 +50,7 @@ let theme = createTheme({
       main: "#1D6BCD",
     },
     secondary: {
-      main: "#555A66",
+      main: "#75787B",
     },
     error: {
       main: "#C8102E",
@@ -65,7 +65,7 @@ let theme = createTheme({
       main: "#F79009",
     },
     text: {
-      primary: "#17181A",
+      primary: "#0B0C0D",
       secondary: "#3E4041",
       placeholder: "#636769",
     },
@@ -135,6 +135,19 @@ export const BldrThemeProvider = ({ children }: PropsWithChildren) => {
         [THEME_ID]: {
           ...theme,
           components: {
+            MuiIconButton: {
+              defaultProps: {
+                color: "secondary",
+              },
+              variants: [
+                {
+                  props: { size: "medium" },
+                  style: {
+                    fontSize: "1.25rem",
+                  },
+                },
+              ],
+            },
             MuiOutlinedInput: {
               styleOverrides: {
                 input: {
@@ -157,8 +170,9 @@ export const BldrThemeProvider = ({ children }: PropsWithChildren) => {
             MuiInputLabel: {
               styleOverrides: {
                 root: {
-                  transform: "translate(0, -1.6em)",
+                  transform: "translate(0, -100%) translate(0, -4px)",
                   fontWeight: theme.typography.fontWeightMedium,
+                  lineHeight: theme.typography.body1.lineHeight,
                 },
               },
             },
@@ -180,6 +194,7 @@ export const BldrThemeProvider = ({ children }: PropsWithChildren) => {
               styleOverrides: {
                 root: {
                   paddingRight: "64px",
+                  fontWeight: theme.typography.fontWeightSemibold,
                 },
               },
             },
@@ -187,6 +202,13 @@ export const BldrThemeProvider = ({ children }: PropsWithChildren) => {
               styleOverrides: {
                 root: {
                   padding: "12px",
+                },
+              },
+            },
+            MuiDialogContent: {
+              styleOverrides: {
+                root: {
+                  padding: "24px",
                 },
               },
             },

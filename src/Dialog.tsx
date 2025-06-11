@@ -78,17 +78,20 @@ export const Dialog = ({
         onClick={(e) => props.onClose?.(e, "cancelClick")}
         sx={{
           position: "absolute",
-          right: 10,
-          top: 10,
-          color: "black",
+          right: 12,
+          top: 12,
         }}
       >
-        <Close />
+        <Close fontSize="inherit" />
       </IconButton>
       {title && (
         <DialogTitle>
           {title}
-          {subtitle && <Typography variant="body2">{subtitle}</Typography>}
+          {subtitle && (
+            <Typography variant="body2" sx={{ mt: "4px" }}>
+              {subtitle}
+            </Typography>
+          )}
         </DialogTitle>
       )}
       {content && (
@@ -103,7 +106,7 @@ export const Dialog = ({
         </DialogContent>
       )}
       {children}
-      <DialogActions>
+      <DialogActions sx={{ pt: isScrollable ? undefined : "4px" }}>
         {tertiaryAction && (
           <Button
             disabled={isLoadingOrPending}
