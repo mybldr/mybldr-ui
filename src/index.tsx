@@ -8,11 +8,13 @@ import { TextField, TextFieldProps } from "./TextField";
 import { Select, SelectProps } from "./Select";
 import { Dialog, DialogProps } from "./Dialog";
 import { Button, ButtonProps } from "./Button";
-export { Autocomplete, TextField, Dialog, Button, Select };
+import { SideSheet, SideSheetProps } from "./SideSheet";
+export { Autocomplete, TextField, Dialog, Button, Select, SideSheet };
 export type {
   AutocompleteProps,
   TextFieldProps,
   DialogProps,
   ButtonProps,
   SelectProps,
+  SideSheetProps,
 };

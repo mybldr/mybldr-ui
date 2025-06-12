@@ -1,7 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
 
-import { SideSheet, SideSheetContainer, SideSheetProps } from "./SideSheet";
-import { Box } from "@mui/material";
+import { SideSheet, SideSheetProps } from "./SideSheet";
 
 const meta = {
   title: "SideSheet",
@@ -10,11 +9,6 @@ const meta = {
     layout: "centered",
   },
   tags: ["autodocs"],
-  decorators: [
-    (story) => (
-      <SideSheetContainer sideSheet={story()}>{LOREM}</SideSheetContainer>
-    ),
-  ],
 } satisfies Meta<typeof SideSheet>;
 
 export default meta;
@@ -30,6 +24,7 @@ export const BaseSideSheet: Story = {
     anchor: "right",
     open: true,
     title: "Title",
+    sideSheet: LOREM,
     children: LOREM,
     primaryAction: {
       onClick: async () =>
@@ -50,7 +45,8 @@ export const ScrollSideSheet: Story = {
     anchor: "right",
     open: true,
     title: "Title",
-    children: Array(8).fill(LOREM).join(" "),
+    sideSheet: Array(8).fill(LOREM).join(" "),
+    children: LOREM,
     primaryAction: {
       onClick: async () =>
         await new Promise((resolve) => setTimeout(resolve, 1000)),
