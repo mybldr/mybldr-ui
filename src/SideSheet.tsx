@@ -12,32 +12,18 @@ import { Button, ButtonProps } from "./Button";
 import { useIsPromisePending } from "./useIsPromisePending";
 import { useIsScrollable } from "./useIsScrollable";
 
-export interface SideSheetContainer extends BoxProps {
-  sideSheet: React.ReactNode;
-}
-
-export const SideSheetContainer = ({
-  sideSheet,
-  children,
-  sx,
-  ...props
-}: SideSheetContainer) => (
-  <Box
-    sx={[...(Array.isArray(sx) ? sx : [sx]), { display: "flex" }]}
-    {...props}
-  >
-    <Box>{children}</Box>
-    {sideSheet}
-  </Box>
-);
-
 export interface SideSheetAction
   extends Pick<ButtonProps, "onClick" | "color"> {
   label: string;
 }
 
-export interface SideSheetProps extends Omit<DrawerProps, "onClose" | "title"> {
+export interface DrawerPropsWithWidth extends DrawerProps {
   width: string | number;
+}
+
+export interface SideSheetProps
+  extends Omit<DrawerPropsWithWidth, "onClose" | "title"> {
+  sideSheet: React.ReactNode;
   title: React.ReactNode;
   primaryAction?: SideSheetAction;
   secondaryAction?: SideSheetAction;
@@ -50,7 +36,7 @@ export interface SideSheetProps extends Omit<DrawerProps, "onClose" | "title"> {
 
 const StyledDrawer = styled(Drawer, {
   shouldForwardProp: (props) => props !== "width",
-})<Omit<SideSheetProps, "title">>(({ theme, width }) => ({
+})<DrawerPropsWithWidth>(({ theme, width }) => ({
   width,
   "& .MuiDrawer-paper": {
     display: "flex",
@@ -151,7 +137,7 @@ export const PortaledSideSheet = ({
             disabled={isLoadingOrPending}
             variant="outlined"
             color="secondary"
-            {...primaryAction}
+            {...secondaryAction}
             onClick={
               secondaryAction.onClick
                 ? observePromise(secondaryAction.onClick)
@@ -186,9 +172,12 @@ export const SideSheet = ({
   primaryAction,
   secondaryAction,
   isLoading,
+  sideSheet,
+  sx,
   ...props
-}: SideSheetProps) => {
-  return (
+}: SideSheetProps) => (
+  <Box sx={[...(Array.isArray(sx) ? sx : [sx]), { display: "flex" }]}>
+    <Box>{children}</Box>
     <StyledDrawer {...props}>
       <PortaledSideSheet
         title={title}
@@ -197,8 +186,8 @@ export const SideSheet = ({
         isLoading={isLoading}
         onClose={props.onClose}
       >
-        {children}
+        {sideSheet}
       </PortaledSideSheet>
     </StyledDrawer>
-  );
-};
+  </Box>
+);
