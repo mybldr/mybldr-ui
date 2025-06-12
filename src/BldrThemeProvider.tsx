@@ -235,6 +235,12 @@ export const BldrThemeProvider = ({ children }: PropsWithChildren) => {
                     },
                   },
                 },
+                {
+                  props: { variant: "outlined", color: "secondary" },
+                  style: {
+                    color: theme.palette.text.secondary,
+                  },
+                },
               ],
             },
           },
