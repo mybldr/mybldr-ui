@@ -50,7 +50,7 @@ export const ScrollSideSheet: Story = {
     anchor: "right",
     open: true,
     title: "Title",
-    children: Array(5).fill(LOREM).join(" "),
+    children: Array(8).fill(LOREM).join(" "),
     primaryAction: {
       onClick: async () =>
         await new Promise((resolve) => setTimeout(resolve, 1000)),
