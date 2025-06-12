@@ -82,20 +82,29 @@ const StyledDrawer = styled(Drawer, {
   ],
 }));
 
-export const SideSheet = ({
+// SideSheet content is self contained to prevent buggy behavior with refs and portals
+export const PortaledSideSheet = ({
   children,
   title,
   primaryAction,
   secondaryAction,
   isLoading,
-  ...props
-}: SideSheetProps) => {
+  onClose,
+}: Pick<
+  SideSheetProps,
+  | "children"
+  | "title"
+  | "primaryAction"
+  | "secondaryAction"
+  | "isLoading"
+  | "onClose"
+>) => {
   const [isPending, observePromise] = useIsPromisePending();
   const isLoadingOrPending = isPending || isLoading;
   const [isScrollable, ref] = useIsScrollable();
 
   return (
-    <StyledDrawer {...props}>
+    <>
       {typeof title === "string" ? (
         <Typography
           variant="h6"
@@ -113,7 +122,7 @@ export const SideSheet = ({
       <IconButton
         aria-label="close"
         disabled={isLoadingOrPending}
-        onClick={(e) => props.onClose?.(e, "cancelClick")}
+        onClick={(e) => onClose?.(e, "cancelClick")}
         sx={{
           position: "absolute",
           right: 4,
@@ -167,6 +176,29 @@ export const SideSheet = ({
           </Button>
         )}
       </Box>
+    </>
+  );
+};
+
+export const SideSheet = ({
+  children,
+  title,
+  primaryAction,
+  secondaryAction,
+  isLoading,
+  ...props
+}: SideSheetProps) => {
+  return (
+    <StyledDrawer {...props}>
+      <PortaledSideSheet
+        title={title}
+        primaryAction={primaryAction}
+        secondaryAction={secondaryAction}
+        isLoading={isLoading}
+        onClose={props.onClose}
+      >
+        {children}
+      </PortaledSideSheet>
     </StyledDrawer>
   );
 };

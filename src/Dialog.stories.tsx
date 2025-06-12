@@ -19,15 +19,7 @@ const LOREM =
   "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.";
 
 export const BaseDialog: Story = {
-  argTypes: {
-    disablePortal: {
-      table: {
-        disable: true,
-      },
-    },
-  },
   args: {
-    disablePortal: true,
     open: true,
     title: "Title",
     subtitle: "Subtitle",
@@ -41,31 +33,15 @@ export const BaseDialog: Story = {
 };
 
 export const ScrollDialog: Story = {
-  argTypes: {
-    disablePortal: {
-      table: {
-        disable: true,
-      },
-    },
-  },
   args: {
-    disablePortal: true,
     open: true,
     title: "Title",
-    content: Array(5).fill(LOREM).join(" "),
+    content: Array(8).fill(LOREM).join(" "),
   },
 };
 
 export const LoadingDialog: Story = {
-  argTypes: {
-    disablePortal: {
-      table: {
-        disable: true,
-      },
-    },
-  },
   args: {
-    disablePortal: true,
     open: true,
     showLoadingOverlay: true,
     title: "Title",

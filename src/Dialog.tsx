@@ -35,7 +35,8 @@ export interface DialogProps
   isLoading?: boolean;
 }
 
-export const Dialog = ({
+// Dialog content is self contained to prevent buggy behavior with refs and portals
+export const PortaledDialog = ({
   title,
   subtitle,
   children,
@@ -46,14 +47,27 @@ export const Dialog = ({
   actionDetails,
   showLoadingOverlay,
   isLoading,
-  ...props
-}: DialogProps) => {
+  onClose,
+}: Pick<
+  DialogProps,
+  | "title"
+  | "subtitle"
+  | "children"
+  | "content"
+  | "primaryAction"
+  | "dismissActionLabel"
+  | "tertiaryAction"
+  | "actionDetails"
+  | "showLoadingOverlay"
+  | "isLoading"
+  | "onClose"
+>) => {
   const [isPending, observePromise] = useIsPromisePending();
   const [isScrollable, ref] = useIsScrollable();
   const isLoadingOrPending = isPending || isLoading;
 
   return (
-    <MuiDialog {...props}>
+    <>
       {isLoadingOrPending && showLoadingOverlay && (
         <Box
           sx={{
@@ -75,7 +89,7 @@ export const Dialog = ({
       <IconButton
         disabled={isLoadingOrPending}
         aria-label="close"
-        onClick={(e) => props.onClose?.(e, "cancelClick")}
+        onClick={(e) => onClose?.(e, "cancelClick")}
         sx={{
           position: "absolute",
           right: 12,
@@ -127,7 +141,7 @@ export const Dialog = ({
           disabled={isLoadingOrPending}
           variant="outlined"
           color="secondary"
-          onClick={(e) => props.onClose?.(e, "cancelClick")}
+          onClick={(e) => onClose?.(e, "cancelClick")}
         >
           {dismissActionLabel}
         </Button>
@@ -146,6 +160,37 @@ export const Dialog = ({
           </Button>
         )}
       </DialogActions>
-    </MuiDialog>
+    </>
   );
 };
+
+export const Dialog = ({
+  title,
+  subtitle,
+  children,
+  content,
+  primaryAction,
+  dismissActionLabel,
+  tertiaryAction,
+  actionDetails,
+  showLoadingOverlay,
+  isLoading,
+  ...props
+}: DialogProps) => (
+  <MuiDialog {...props}>
+    <PortaledDialog
+      title={title}
+      subtitle={subtitle}
+      content={content}
+      primaryAction={primaryAction}
+      dismissActionLabel={dismissActionLabel}
+      tertiaryAction={tertiaryAction}
+      actionDetails={actionDetails}
+      showLoadingOverlay={showLoadingOverlay}
+      isLoading={isLoading}
+      onClose={props.onClose}
+    >
+      {children}
+    </PortaledDialog>
+  </MuiDialog>
+);
