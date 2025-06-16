@@ -9,12 +9,22 @@ import { Select, SelectProps } from "./Select";
 import { Dialog, DialogProps } from "./Dialog";
 import { Button, ButtonProps } from "./Button";
 import { SideSheet, SideSheetProps } from "./SideSheet";
-export { Autocomplete, TextField, Dialog, Button, Select, SideSheet };
+import { IconButton, IconButtonProps } from "./IconButton";
+export {
+  Autocomplete,
+  TextField,
+  Dialog,
+  Button,
+  IconButton,
+  Select,
+  SideSheet,
+};
 export type {
   AutocompleteProps,
   TextFieldProps,
   DialogProps,
   ButtonProps,
+  IconButtonProps,
   SelectProps,
   SideSheetProps,
 };
