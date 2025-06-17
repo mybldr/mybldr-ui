@@ -21,3 +21,12 @@ export const BaseButton: Story = {
     variant: "contained",
   },
 };
+
+export const LoadingButton: Story = {
+  args: {
+    children: "Label",
+    variant: "contained",
+    onClick: async () =>
+      await new Promise((resolve) => setTimeout(resolve, 1000)),
+  },
+};

@@ -4,6 +4,9 @@ import {
   THEME_ID,
   ThemeProvider,
   formLabelClasses,
+  ButtonProps,
+  alpha,
+  Theme,
 } from "@mui/material";
 import { PropsWithChildren } from "react";
 
@@ -50,7 +53,7 @@ let theme = createTheme({
       main: "#1D6BCD",
     },
     secondary: {
-      main: "#75787B",
+      main: "#0B0C0D",
     },
     error: {
       main: "#C8102E",
@@ -62,7 +65,8 @@ let theme = createTheme({
       main: "#1E7EC3",
     },
     warning: {
-      main: "#F79009",
+      main: "#B54708",
+      contrastText: "#FFFFFF",
     },
     text: {
       primary: "#0B0C0D",
@@ -127,6 +131,10 @@ theme = createTheme(theme, {
     },
   },
 });
+
+const getColorFromPalette = (theme: Theme, color: ButtonProps["color"]) =>
+  // Ignore 'inherit' prop value and treat it as primary instead
+  theme.palette[!color || color === "inherit" ? "primary" : color];
 
 export const BldrThemeProvider = ({ children }: PropsWithChildren) => {
   return (
@@ -213,26 +221,75 @@ export const BldrThemeProvider = ({ children }: PropsWithChildren) => {
               },
             },
             MuiButton: {
+              defaultProps: {
+                disableRipple: true,
+              },
               styleOverrides: {
-                root: {
+                root: ({ ownerState }: { ownerState: ButtonProps }) => ({
+                  transition: theme.transitions.create([
+                    "box-shadow",
+                    "background-color",
+                  ]),
+                  borderColor: alpha(
+                    getColorFromPalette(theme, ownerState.color).main,
+                    0.5,
+                  ),
+                  fontWeight: theme.typography.fontWeightSemibold,
+                  lineHeight: "16px",
                   boxShadow: "none",
                   "&:hover": {
-                    boxShadow: "none",
+                    boxShadow: "0px 1px 2px 0px rgba(0, 0, 0, 0.05)",
+                    borderColor: alpha(
+                      getColorFromPalette(theme, ownerState.color).main,
+                      0.5,
+                    ),
                   },
-                },
+                  "&:focus": {
+                    boxShadow: `${alpha(getColorFromPalette(theme, ownerState.color).main, 0.25)} 0 0 0 0.2rem`,
+                  },
+                }),
               },
               variants: [
+                // The "warning" color deviates from MUI patterns
                 {
-                  props: { variant: "contained", color: "secondary" },
+                  props: { variant: "outlined", color: "warning" },
                   style: {
-                    backgroundColor: lighten(theme.palette.secondary.main, 0.9),
-                    color: theme.palette.secondary.main,
+                    color: "#93370D",
+                    borderColor: "#FEC84B",
                     "&:hover": {
-                      backgroundColor: lighten(
-                        theme.palette.secondary.main,
-                        0.8,
-                      ),
+                      backgroundColor: "#FFF2CC",
                     },
+                  },
+                },
+                {
+                  props: { variant: "text", color: "warning" },
+                  style: {
+                    color: "#93370D",
+                    "&:hover": {
+                      backgroundColor: "#FFF2CC",
+                    },
+                  },
+                },
+                {
+                  props: { size: "large" },
+                  style: {
+                    fontSize: "16px",
+                    padding: "8px 16px",
+                    lineHeight: "24px",
+                  },
+                },
+                {
+                  props: { size: "medium" },
+                  style: {
+                    fontSize: "14px",
+                    padding: "8px 12px",
+                  },
+                },
+                {
+                  props: { size: "small" },
+                  style: {
+                    fontSize: "12px",
+                    padding: "6px 8px",
                   },
                 },
               ],
