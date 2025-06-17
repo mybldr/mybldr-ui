@@ -21,39 +21,53 @@ export interface DialogAction extends Pick<ButtonProps, "onClick" | "color"> {
 export interface DialogProps
   extends Omit<MuiDialogProps, "onClose" | "title" | "content"> {
   onClose: (
-    event?: any,
-    reason?: "backdropClick" | "escapeKeyDown" | "cancelClick",
+    event: any,
+    reason: "backdropClick" | "escapeKeyDown" | "cancelClick",
   ) => void;
   title?: React.ReactNode;
   subtitle?: React.ReactNode;
   content?: React.ReactNode;
   primaryAction?: DialogAction;
-  dismissActionText?: string;
+  dismissActionLabel?: string;
   tertiaryAction?: DialogAction;
   actionDetails?: React.ReactNode;
   showLoadingOverlay?: boolean;
   isLoading?: boolean;
 }
 
-export const Dialog = ({
+// Dialog content is self contained to prevent buggy behavior with refs and portals
+export const PortaledDialog = ({
   title,
   subtitle,
   children,
   content,
   primaryAction,
-  dismissActionText = "Cancel",
+  dismissActionLabel = "Cancel",
   tertiaryAction,
   actionDetails,
   showLoadingOverlay,
   isLoading,
-  ...props
-}: DialogProps) => {
+  onClose,
+}: Pick<
+  DialogProps,
+  | "title"
+  | "subtitle"
+  | "children"
+  | "content"
+  | "primaryAction"
+  | "dismissActionLabel"
+  | "tertiaryAction"
+  | "actionDetails"
+  | "showLoadingOverlay"
+  | "isLoading"
+  | "onClose"
+>) => {
   const [isPending, observePromise] = useIsPromisePending();
   const [isScrollable, ref] = useIsScrollable();
   const isLoadingOrPending = isPending || isLoading;
 
   return (
-    <MuiDialog {...props}>
+    <>
       {isLoadingOrPending && showLoadingOverlay && (
         <Box
           sx={{
@@ -75,7 +89,7 @@ export const Dialog = ({
       <IconButton
         disabled={isLoadingOrPending}
         aria-label="close"
-        onClick={(e) => props.onClose?.(e, "cancelClick")}
+        onClick={(e) => onClose(e, "cancelClick")}
         sx={{
           position: "absolute",
           right: 12,
@@ -127,9 +141,9 @@ export const Dialog = ({
           disabled={isLoadingOrPending}
           variant="outlined"
           color="secondary"
-          onClick={(e) => props.onClose?.(e, "cancelClick")}
+          onClick={(e) => onClose(e, "cancelClick")}
         >
-          {dismissActionText}
+          {dismissActionLabel}
         </Button>
         {primaryAction && (
           <Button
@@ -146,6 +160,37 @@ export const Dialog = ({
           </Button>
         )}
       </DialogActions>
-    </MuiDialog>
+    </>
   );
 };
+
+export const Dialog = ({
+  title,
+  subtitle,
+  children,
+  content,
+  primaryAction,
+  dismissActionLabel,
+  tertiaryAction,
+  actionDetails,
+  showLoadingOverlay,
+  isLoading,
+  ...props
+}: DialogProps) => (
+  <MuiDialog {...props}>
+    <PortaledDialog
+      title={title}
+      subtitle={subtitle}
+      content={content}
+      primaryAction={primaryAction}
+      dismissActionLabel={dismissActionLabel}
+      tertiaryAction={tertiaryAction}
+      actionDetails={actionDetails}
+      showLoadingOverlay={showLoadingOverlay}
+      isLoading={isLoading}
+      onClose={props.onClose}
+    >
+      {children}
+    </PortaledDialog>
+  </MuiDialog>
+);

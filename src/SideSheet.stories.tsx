@@ -1,61 +1,56 @@
 import type { Meta, StoryObj } from "@storybook/react";
 
-import { Dialog } from "./Dialog";
+import { SideSheet, SideSheetProps } from "./SideSheet";
 
 const meta = {
-  title: "Dialog",
-  component: Dialog,
+  title: "SideSheet",
+  component: SideSheet,
   parameters: {
     layout: "centered",
   },
   tags: ["autodocs"],
-} satisfies Meta<typeof Dialog>;
+} satisfies Meta<typeof SideSheet>;
 
 export default meta;
 
-type Story = StoryObj<typeof Dialog>;
+type Story = StoryObj<typeof SideSheet>;
 
 const LOREM =
   "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.";
 
-export const BaseDialog: Story = {
+export const BaseSideSheet: Story = {
   args: {
+    width: "400px",
+    anchor: "right",
     open: true,
     title: "Title",
-    subtitle: "Subtitle",
-    content: LOREM,
-    actionDetails: "Details",
-    primaryAction: {
-      onClick: () => alert("Clicked!"),
-      label: "Submit",
-    },
-  },
-};
-
-export const ScrollDialog: Story = {
-  args: {
-    open: true,
-    title: "Title",
-    content: Array(8).fill(LOREM).join(" "),
-  },
-};
-
-export const LoadingDialog: Story = {
-  args: {
-    open: true,
-    showLoadingOverlay: true,
-    title: "Title",
-    subtitle: "Subtitle",
-    content: LOREM,
+    sideSheet: LOREM,
+    children: LOREM,
     primaryAction: {
       onClick: async () =>
         await new Promise((resolve) => setTimeout(resolve, 1000)),
       label: "Submit",
     },
-    tertiaryAction: {
+    secondaryAction: {
       onClick: async () =>
         await new Promise((resolve) => setTimeout(resolve, 1000)),
-      label: "Tertiary",
+      label: "Secondary",
+    },
+  },
+};
+
+export const ScrollSideSheet: Story = {
+  args: {
+    width: "400px",
+    anchor: "right",
+    open: true,
+    title: "Title",
+    sideSheet: Array(8).fill(LOREM).join(" "),
+    children: LOREM,
+    primaryAction: {
+      onClick: async () =>
+        await new Promise((resolve) => setTimeout(resolve, 1000)),
+      label: "Submit",
     },
   },
 };
