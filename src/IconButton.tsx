@@ -34,6 +34,7 @@ export const IconButton = ({
   onClick,
   icon,
   variant = "text",
+  color = "secondary",
   ...props
 }: IconButtonProps) => {
   const [isPending, observePromise] = useIsPromisePending();
@@ -44,6 +45,7 @@ export const IconButton = ({
       {...props}
       variant={variant}
       loading={isLoading}
+      color={color}
       onClick={onClick ? observePromise(onClick) : onClick}
     >
       {icon}

@@ -1,10 +1,8 @@
 import {
   createTheme,
-  lighten,
   THEME_ID,
   ThemeProvider,
   formLabelClasses,
-  svgIconClasses,
   ButtonProps,
   alpha,
   Theme,
