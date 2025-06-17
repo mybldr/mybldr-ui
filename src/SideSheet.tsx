@@ -1,13 +1,7 @@
 import { Close } from "@mui/icons-material";
-import {
-  Box,
-  Drawer,
-  DrawerProps,
-  IconButton,
-  styled,
-  Typography,
-} from "@mui/material";
+import { Box, Drawer, DrawerProps, styled, Typography } from "@mui/material";
 import { Button, ButtonProps } from "./Button";
+import { IconButton } from "./IconButton";
 import { useIsPromisePending } from "./useIsPromisePending";
 import { useIsScrollable } from "./useIsScrollable";
 
@@ -105,6 +99,7 @@ export const PortaledSideSheet = ({
         title
       )}
       <IconButton
+        icon={<Close />}
         aria-label="close"
         disabled={isLoadingOrPending}
         onClick={(e) => onClose(e, "cancelClick")}
@@ -113,9 +108,7 @@ export const PortaledSideSheet = ({
           right: 4,
           top: 4,
         }}
-      >
-        <Close fontSize="inherit" />
-      </IconButton>
+      />
       <Box ref={ref} style={{ flex: 1, padding: "16px", overflowY: "auto" }}>
         {children}
       </Box>
