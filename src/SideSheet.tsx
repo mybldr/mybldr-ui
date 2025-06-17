@@ -1,7 +1,6 @@
 import { Close } from "@mui/icons-material";
 import {
   Box,
-  BoxProps,
   Drawer,
   DrawerProps,
   IconButton,
@@ -108,7 +107,7 @@ export const PortaledSideSheet = ({
       <IconButton
         aria-label="close"
         disabled={isLoadingOrPending}
-        onClick={(e) => onClose?.(e, "cancelClick")}
+        onClick={(e) => onClose(e, "cancelClick")}
         sx={{
           position: "absolute",
           right: 4,

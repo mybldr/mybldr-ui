@@ -89,7 +89,7 @@ export const PortaledDialog = ({
       <IconButton
         disabled={isLoadingOrPending}
         aria-label="close"
-        onClick={(e) => onClose?.(e, "cancelClick")}
+        onClick={(e) => onClose(e, "cancelClick")}
         sx={{
           position: "absolute",
           right: 12,
@@ -141,7 +141,7 @@ export const PortaledDialog = ({
           disabled={isLoadingOrPending}
           variant="outlined"
           color="secondary"
-          onClick={(e) => onClose?.(e, "cancelClick")}
+          onClick={(e) => onClose(e, "cancelClick")}
         >
           {dismissActionLabel}
         </Button>
