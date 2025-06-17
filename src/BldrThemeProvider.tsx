@@ -1,6 +1,5 @@
 import {
   createTheme,
-  lighten,
   THEME_ID,
   ThemeProvider,
   formLabelClasses,
@@ -143,19 +142,6 @@ export const BldrThemeProvider = ({ children }: PropsWithChildren) => {
         [THEME_ID]: {
           ...theme,
           components: {
-            MuiIconButton: {
-              defaultProps: {
-                color: "secondary",
-              },
-              variants: [
-                {
-                  props: { size: "medium" },
-                  style: {
-                    fontSize: "1.25rem",
-                  },
-                },
-              ],
-            },
             MuiOutlinedInput: {
               styleOverrides: {
                 input: {

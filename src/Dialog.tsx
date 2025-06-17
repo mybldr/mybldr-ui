@@ -5,13 +5,13 @@ import {
   DialogContent,
   DialogProps as MuiDialogProps,
   DialogTitle,
-  IconButton,
   Typography,
   Box,
   CircularProgress,
 } from "@mui/material";
 import { useIsPromisePending } from "./useIsPromisePending";
 import { Button, ButtonProps } from "./Button";
+import { IconButton } from "./IconButton";
 import { useIsScrollable } from "./useIsScrollable";
 
 export interface DialogAction extends Pick<ButtonProps, "onClick" | "color"> {
@@ -87,6 +87,7 @@ export const PortaledDialog = ({
         </Box>
       )}
       <IconButton
+        icon={<Close />}
         disabled={isLoadingOrPending}
         aria-label="close"
         onClick={(e) => onClose(e, "cancelClick")}
@@ -95,9 +96,7 @@ export const PortaledDialog = ({
           right: 12,
           top: 12,
         }}
-      >
-        <Close fontSize="inherit" />
-      </IconButton>
+      />
       {title && (
         <DialogTitle>
           {title}
