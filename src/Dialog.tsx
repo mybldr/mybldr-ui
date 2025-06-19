@@ -134,7 +134,7 @@ export const PortaledDialog = ({
             {tertiaryAction.label}
           </Button>
         )}
-        {actionDetails}
+        <Box sx={{ pl: "12px" }}>{actionDetails}</Box>
         <Box sx={{ marginRight: "auto" }} />
         <Button
           disabled={isLoadingOrPending}
