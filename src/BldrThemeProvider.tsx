@@ -6,6 +6,7 @@ import {
   ButtonProps,
   alpha,
   Theme,
+  buttonClasses,
 } from "@mui/material";
 import { PropsWithChildren } from "react";
 
@@ -232,6 +233,16 @@ export const BldrThemeProvider = ({ children }: PropsWithChildren) => {
                   },
                   "&:focus": {
                     boxShadow: `${alpha(getColorFromPalette(theme, ownerState.color).main, 0.25)} 0 0 0 0.2rem`,
+                  },
+                  [`&.${buttonClasses.sizeLarge} .${buttonClasses.icon} > *`]: {
+                    fontSize: "18px",
+                  },
+                  [`&.${buttonClasses.sizeMedium} .${buttonClasses.icon} > *`]:
+                    {
+                      fontSize: "16px",
+                    },
+                  [`&.${buttonClasses.sizeSmall} .${buttonClasses.icon} > *`]: {
+                    fontSize: "14px",
                   },
                 }),
               },
