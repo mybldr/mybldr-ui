@@ -41,3 +41,13 @@ export const ButtonWithStartIcon: Story = {
       await new Promise((resolve) => setTimeout(resolve, 1000)),
   },
 };
+
+export const ButtonWithEndIcon: Story = {
+  args: {
+    children: "Label",
+    variant: "contained",
+    endIcon: <HouseOutlined />,
+    onClick: async () =>
+      await new Promise((resolve) => setTimeout(resolve, 1000)),
+  },
+};

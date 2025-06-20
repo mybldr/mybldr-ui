@@ -59,6 +59,12 @@ declare module "@mui/material/styles/createTypography" {
   }
 }
 
+declare module "@mui/material/Button" {
+  interface ButtonPropsSizeOverrides {
+    xsmall: true;
+  }
+}
+
 let theme = createTheme({
   typography: {
     fontFamily: '"Inter","Helvetica",sans-serif',
@@ -300,6 +306,9 @@ export const BldrThemeProvider = ({ children }: PropsWithChildren) => {
                   [`&.${buttonClasses.sizeSmall} .${buttonClasses.icon} > *`]: {
                     fontSize: "14px",
                   },
+                  [`&.MuiButton-sizeXsmall .${buttonClasses.icon} > *`]: {
+                    fontSize: "14px",
+                  },
                 }),
               },
               variants: [
@@ -315,6 +324,8 @@ export const BldrThemeProvider = ({ children }: PropsWithChildren) => {
                 ).map((color) => ({
                   props: { color },
                   style: {
+                    // Leverage CSS vars used by internal Button component to override button colors
+                    // https://github.com/mui/material-ui/blob/95fcfbe9e25d5d93be5ba5e4f771893b2a5c8b50/packages/mui-material/src/Button/Button.js#L171-L196
                     "--variant-textColor":
                       theme.palette.extendedColors[color].outlinedText,
                     "--variant-outlinedColor":
@@ -352,9 +363,17 @@ export const BldrThemeProvider = ({ children }: PropsWithChildren) => {
                   props: { size: "small" },
                   style: {
                     fontSize: "12px",
+                    padding: "8px 12px",
+                  },
+                },
+                {
+                  props: { size: "xsmall" },
+                  style: {
+                    fontSize: "12px",
                     padding: "6px 8px",
                   },
                 },
+                // Outlined variants need 1px less of padding to account for added 1px border
                 {
                   props: { size: "large", variant: "outlined" },
                   style: {
@@ -369,6 +388,12 @@ export const BldrThemeProvider = ({ children }: PropsWithChildren) => {
                 },
                 {
                   props: { size: "small", variant: "outlined" },
+                  style: {
+                    padding: "7px 11px",
+                  },
+                },
+                {
+                  props: { size: "xsmall", variant: "outlined" },
                   style: {
                     padding: "5px 7px",
                   },
