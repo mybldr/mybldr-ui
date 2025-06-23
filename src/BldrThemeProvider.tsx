@@ -21,10 +21,25 @@ declare module "@mui/material/styles" {
   interface Palette {
     border: BorderColor;
     util: Util;
+    extendedColors: ExtendedColors;
+  }
+  interface ExtendedColor {
+    outlinedBorder: string;
+    outlinedText: string;
+    outlinedTextHover: string;
+  }
+  interface ExtendedColors {
+    primary: ExtendedColor;
+    secondary: ExtendedColor;
+    error: ExtendedColor;
+    warning: ExtendedColor;
+    info: ExtendedColor;
+    success: ExtendedColor;
   }
   interface PaletteOptions {
     border: BorderColor;
     util: Util;
+    extendedColors: ExtendedColors;
   }
   interface TypeBackground {
     secondary: string;
@@ -44,6 +59,12 @@ declare module "@mui/material/styles/createTypography" {
   }
 }
 
+declare module "@mui/material/Button" {
+  interface ButtonPropsSizeOverrides {
+    xsmall: true;
+  }
+}
+
 let theme = createTheme({
   typography: {
     fontFamily: '"Inter","Helvetica",sans-serif',
@@ -51,21 +72,38 @@ let theme = createTheme({
   palette: {
     primary: {
       main: "#1D6BCD",
+      dark: "#1858A8",
+      light: "#ECF3FC",
+      contrastText: "#FFFFFF",
     },
     secondary: {
       main: "#0B0C0D",
+      dark: "#252628",
+      light: "#FAFAFA",
+      contrastText: "#FFFFFF",
     },
     error: {
       main: "#C8102E",
+      dark: "#830419",
+      light: "#FAE6E8",
+      contrastText: "#FFFFFF",
     },
     success: {
       main: "#198402",
+      dark: "#177802",
+      light: "#EDF5EB",
+      contrastText: "#FFFFFF",
     },
     info: {
-      main: "#1E7EC3",
+      main: "#176F98",
+      dark: "#124C76",
+      light: "#E9F5FB",
+      contrastText: "#FFFFFF",
     },
     warning: {
       main: "#B54708",
+      dark: "#93370D",
+      light: "#FFF2CC",
       contrastText: "#FFFFFF",
     },
     text: {
@@ -83,6 +121,38 @@ let theme = createTheme({
     },
     util: {
       gridRowHover: "#E3E4E5",
+    },
+    extendedColors: {
+      primary: {
+        outlinedBorder: "#A2C5F2",
+        outlinedText: "#1D6BCD",
+        outlinedTextHover: "#1858A8",
+      },
+      secondary: {
+        outlinedBorder: "#D8D9DA",
+        outlinedText: "#3E4041",
+        outlinedTextHover: "#252628",
+      },
+      error: {
+        outlinedBorder: "#EB8491",
+        outlinedText: "#A50722",
+        outlinedTextHover: "#830419",
+      },
+      warning: {
+        outlinedBorder: "#FEC84B",
+        outlinedText: "#93370D",
+        outlinedTextHover: "#4E1D09",
+      },
+      info: {
+        outlinedBorder: "#6ABDE4",
+        outlinedText: "#1273B8",
+        outlinedTextHover: "#176F98",
+      },
+      success: {
+        outlinedBorder: "#95C68B",
+        outlinedText: "#177802",
+        outlinedTextHover: "#125E01",
+      },
     },
   },
 });
@@ -217,19 +287,11 @@ export const BldrThemeProvider = ({ children }: PropsWithChildren) => {
                     "box-shadow",
                     "background-color",
                   ]),
-                  borderColor: alpha(
-                    getColorFromPalette(theme, ownerState.color).main,
-                    0.5,
-                  ),
                   fontWeight: theme.typography.fontWeightSemibold,
                   lineHeight: "16px",
                   boxShadow: "none",
                   "&:hover": {
                     boxShadow: "0px 1px 2px 0px rgba(0, 0, 0, 0.05)",
-                    borderColor: alpha(
-                      getColorFromPalette(theme, ownerState.color).main,
-                      0.5,
-                    ),
                   },
                   "&:focus": {
                     boxShadow: `${alpha(getColorFromPalette(theme, ownerState.color).main, 0.25)} 0 0 0 0.2rem`,
@@ -244,29 +306,44 @@ export const BldrThemeProvider = ({ children }: PropsWithChildren) => {
                   [`&.${buttonClasses.sizeSmall} .${buttonClasses.icon} > *`]: {
                     fontSize: "14px",
                   },
+                  [`&.MuiButton-sizeXsmall .${buttonClasses.icon} > *`]: {
+                    fontSize: "14px",
+                  },
                 }),
               },
               variants: [
-                // The "warning" color deviates from MUI patterns
-                {
-                  props: { variant: "outlined", color: "warning" },
+                ...(
+                  [
+                    "primary",
+                    "secondary",
+                    "error",
+                    "warning",
+                    "info",
+                    "success",
+                  ] as const
+                ).map((color) => ({
+                  props: { color },
                   style: {
-                    color: "#93370D",
-                    borderColor: "#FEC84B",
+                    // Leverage CSS vars used by internal Button component to override button colors
+                    // https://github.com/mui/material-ui/blob/95fcfbe9e25d5d93be5ba5e4f771893b2a5c8b50/packages/mui-material/src/Button/Button.js#L171-L196
+                    "--variant-textColor":
+                      theme.palette.extendedColors[color].outlinedText,
+                    "--variant-outlinedColor":
+                      theme.palette.extendedColors[color].outlinedText,
+                    "--variant-outlinedBorder":
+                      theme.palette.extendedColors[color].outlinedBorder,
                     "&:hover": {
-                      backgroundColor: "#FFF2CC",
+                      "--variant-outlinedBorder":
+                        theme.palette.extendedColors[color].outlinedBorder,
+                      "--variant-outlinedBg": theme.palette[color].light,
+                      "--variant-textBg": theme.palette[color].light,
+                      "--variant-textColor":
+                        theme.palette.extendedColors[color].outlinedTextHover,
+                      "--variant-outlinedColor":
+                        theme.palette.extendedColors[color].outlinedTextHover,
                     },
                   },
-                },
-                {
-                  props: { variant: "text", color: "warning" },
-                  style: {
-                    color: "#93370D",
-                    "&:hover": {
-                      backgroundColor: "#FFF2CC",
-                    },
-                  },
-                },
+                })),
                 {
                   props: { size: "large" },
                   style: {
@@ -286,7 +363,39 @@ export const BldrThemeProvider = ({ children }: PropsWithChildren) => {
                   props: { size: "small" },
                   style: {
                     fontSize: "12px",
+                    padding: "8px 12px",
+                  },
+                },
+                {
+                  props: { size: "xsmall" },
+                  style: {
+                    fontSize: "12px",
                     padding: "6px 8px",
+                  },
+                },
+                // Outlined variants need 1px less of padding to account for added 1px border
+                {
+                  props: { size: "large", variant: "outlined" },
+                  style: {
+                    padding: "7px 15px",
+                  },
+                },
+                {
+                  props: { size: "medium", variant: "outlined" },
+                  style: {
+                    padding: "7px 11px",
+                  },
+                },
+                {
+                  props: { size: "small", variant: "outlined" },
+                  style: {
+                    padding: "7px 11px",
+                  },
+                },
+                {
+                  props: { size: "xsmall", variant: "outlined" },
+                  style: {
+                    padding: "5px 7px",
                   },
                 },
               ],

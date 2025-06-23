@@ -8,10 +8,10 @@ export interface IconButtonProps extends Omit<ButtonProps, "children"> {
 
 const StyledButton = styled(Button)({
   minWidth: "unset",
-  padding: "8px",
   [`& .${svgIconClasses.root}`]: {
     fontSize: "inherit",
   },
+  padding: "8px",
   fontSize: "20px",
   variants: [
     {
@@ -24,6 +24,12 @@ const StyledButton = styled(Button)({
       props: { size: "small" },
       style: {
         padding: "6px",
+      },
+    },
+    {
+      props: { size: "xsmall" },
+      style: {
+        padding: "4px",
       },
     },
   ],
