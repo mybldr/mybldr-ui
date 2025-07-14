@@ -295,8 +295,8 @@ let theme = createTheme({
         secondary: colors["red"]["500"],
       },
       warning: {
-        primary: colors["amber"]["700"],
-        secondary: colors["amber"]["600"],
+        primary: colors["amber"]["800"],
+        secondary: colors["amber"]["700"],
       },
       success: {
         primary: colors["green"]["600"],
@@ -323,7 +323,7 @@ let theme = createTheme({
       },
       error: {
         primary: colors["red"]["25"],
-        solid: colors["red"]["700"],
+        solid: colors["red"]["600"],
       },
       warning: {
         primary: colors["amber"]["50"],
@@ -331,11 +331,11 @@ let theme = createTheme({
       },
       success: {
         primary: colors["green"]["25"],
-        solid: colors["green"]["700"],
+        solid: colors["green"]["500"],
       },
       info: {
         primary: colors["lightblue"]["25"],
-        solid: colors["lightblue"]["600"],
+        solid: colors["lightblue"]["700"],
       },
     },
     border: {

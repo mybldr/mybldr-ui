@@ -29,15 +29,25 @@ const setValueAtPath = (acc, path, value) => {
 }
 
 const buildPaletteFromThemeEntry = (themeEntry) => Object.entries(themeEntry).reduce((acc, [key, value]) => {
-    // Avoid things like (...)_hover or (...)_on-brand for now 
-    if (key.includes('_')) {
-        return acc;
+    const match = value['$value'].match(/\{Colors\.(.*)\.(.*)\}/)
+    if (!match) {
+        return acc
     }
 
-    const [_, color, shade] = value['$value'].match(/\{Colors\.(.*)\.(.*)\}/)
+    const [_, color, shade] = match
+
+    const path = key.split('-').slice(1).map((entry) => {
+        if (entry.includes('_')) {
+            const [identifier, type] = entry.split('_')
+            // camelCase the identifer + type
+            return `${identifier}${type.charAt(0).toUpperCase() + type.slice(1)}`;
+        } else {
+            return entry;
+        }
+    });
     setValueAtPath(
         acc,
-        key.split('-').slice(1),
+        path,
         `colors["${color.toLowerCase()}"]["${shade}"]`
     )
 
