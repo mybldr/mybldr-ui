@@ -57,10 +57,6 @@ declare module "@mui/material/styles" {
       solid: string;
     };
   }
-  interface Util {
-    gridRowHover: string;
-  }
-  // TODO: update border types
   interface Foreground {
     primary: string;
     secondary: string;
@@ -154,7 +150,6 @@ declare module "@mui/material/styles" {
     brand: SimplePaletteColorOptions;
     neutral: SimplePaletteColorOptions;
     border: BorderColor;
-    util: Util;
     foreground: Foreground;
   }
 
@@ -162,7 +157,6 @@ declare module "@mui/material/styles" {
     brand: SimplePaletteColorOptions;
     neutral: SimplePaletteColorOptions;
     border: BorderColor;
-    util: Util;
     foreground: Foreground;
   }
 }
@@ -379,9 +373,6 @@ let theme = createTheme({
         tertiary: colors["lightblue"]["50"],
         solid: colors["lightblue"]["600"],
       },
-    },
-    util: {
-      gridRowHover: "#E3E4E5",
     },
   },
 });
