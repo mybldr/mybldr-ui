@@ -10,7 +10,8 @@
     "rollup": "rollup -c --bundleConfigAsCjs",
     "release": "release-it",
     "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build"
+    "build-storybook": "storybook build",
+    "export-figma-theme": "node ./scripts/export-figma-theme.js"
   },
   "repository": {
     "type": "git",

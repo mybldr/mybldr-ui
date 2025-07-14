@@ -1,3 +1,4 @@
+import { CheckCircleOutline } from "@mui/icons-material";
 import {
   createTheme,
   THEME_ID,
@@ -7,49 +8,157 @@ import {
   alpha,
   Theme,
   buttonClasses,
+  SimplePaletteColorOptions,
 } from "@mui/material";
 import { PropsWithChildren } from "react";
+import colors from "./colors.json";
 
 declare module "@mui/material/styles" {
   interface BorderColor {
     primary: string;
     secondary: string;
+    tertiary: string;
+    disabled: string;
+    brand: {
+      primary: string;
+      secondary: string;
+      tertiary: string;
+      solid: string;
+    };
+    neutral: {
+      primary: string;
+      secondary: string;
+      tertiary: string;
+      solid: string;
+    };
+    error: {
+      primary: string;
+      secondary: string;
+      tertiary: string;
+      solid: string;
+    };
+    warning: {
+      primary: string;
+      secondary: string;
+      tertiary: string;
+      solid: string;
+    };
+    success: {
+      primary: string;
+      secondary: string;
+      tertiary: string;
+      solid: string;
+    };
+    info: {
+      primary: string;
+      secondary: string;
+      tertiary: string;
+      solid: string;
+    };
   }
   interface Util {
     gridRowHover: string;
   }
-  interface Palette {
-    border: BorderColor;
-    util: Util;
-    extendedColors: ExtendedColors;
-  }
-  interface ExtendedColor {
-    outlinedBorder: string;
-    outlinedText: string;
-    outlinedTextHover: string;
-  }
-  interface ExtendedColors {
-    primary: ExtendedColor;
-    secondary: ExtendedColor;
-    error: ExtendedColor;
-    warning: ExtendedColor;
-    info: ExtendedColor;
-    success: ExtendedColor;
-  }
-  interface PaletteOptions {
-    border: BorderColor;
-    util: Util;
-    extendedColors: ExtendedColors;
-  }
-  interface TypeBackground {
-    secondary: string;
-    tertiary: string;
-  }
-  interface TypeText {
+  // TODO: update border types
+  interface Foreground {
     primary: string;
     secondary: string;
+    tertiary: string;
+    quarterary: string;
+    white: string;
     disabled: string;
     placeholder: string;
+    brand: {
+      primary: string;
+      secondary: string;
+    };
+    error: {
+      primary: string;
+      secondary: string;
+    };
+    warning: {
+      primary: string;
+      secondary: string;
+    };
+    success: {
+      primary: string;
+      secondary: string;
+    };
+    info: {
+      primary: string;
+      secondary: string;
+    };
+  }
+  interface TypeBackground {
+    primary: string;
+    secondary: string;
+    tertiary: string;
+    disabled: string;
+    overlay: string;
+    brand: {
+      primary: string;
+      solid: string;
+    };
+    error: {
+      primary: string;
+      solid: string;
+    };
+    warning: {
+      primary: string;
+      solid: string;
+    };
+    success: {
+      primary: string;
+      solid: string;
+    };
+    info: {
+      primary: string;
+      solid: string;
+    };
+  }
+  interface TypeText {
+    placeholder: string;
+    white: string;
+    brand: {
+      primary: string;
+      primaryHover: string;
+    };
+    neutral: {
+      primary: string;
+      primaryHover: string;
+    };
+    info: {
+      primary: string;
+      primaryHover: string;
+    };
+    success: {
+      primary: string;
+      primaryHover: string;
+    };
+    warning: {
+      primary: string;
+      primaryHover: string;
+    };
+    error: {
+      primary: string;
+      primaryHover: string;
+    };
+  }
+
+  interface Palette {
+    brand: SimplePaletteColorOptions;
+    neutral: SimplePaletteColorOptions;
+    border: BorderColor;
+    util: Util;
+    foreground: Foreground;
+  }
+
+  interface PaletteOptions {
+    brand: SimplePaletteColorOptions;
+    neutral: SimplePaletteColorOptions;
+    border: BorderColor;
+    util: Util;
+    foreground: Foreground;
   }
 }
 
@@ -60,6 +169,12 @@ declare module "@mui/material/styles/createTypography" {
 }
 
 declare module "@mui/material/Button" {
+  interface ButtonPropsColorOverrides {
+    primary: false;
+    secondary: false;
+    brand: true;
+    neutral: true;
+  }
   interface ButtonPropsSizeOverrides {
     xsmall: true;
   }
@@ -70,89 +185,188 @@ let theme = createTheme({
     fontFamily: '"Inter","Helvetica",sans-serif',
   },
   palette: {
+    // primary and secondary are not used in the designed system, brand and neutral are used in their place
+    // primary and secondary are defined so that if anything defaults to those colors, they remain on brand
     primary: {
-      main: "#1D6BCD",
-      dark: "#1858A8",
-      light: "#ECF3FC",
-      contrastText: "#FFFFFF",
+      main: colors["blue"]["500"],
+      dark: colors["blue"]["600"],
+      light: colors["blue"]["25"],
+      contrastText: colors["global"]["white"],
     },
     secondary: {
-      main: "#0B0C0D",
-      dark: "#252628",
-      light: "#FAFAFA",
-      contrastText: "#FFFFFF",
+      main: colors["gray"]["900"],
+      dark: colors["gray"]["800"],
+      light: colors["gray"]["25"],
+      contrastText: colors["global"]["white"],
+    },
+
+    brand: {
+      main: colors["blue"]["500"],
+      dark: colors["blue"]["600"],
+      light: colors["blue"]["25"],
+      contrastText: colors["global"]["white"],
+    },
+    neutral: {
+      main: colors["gray"]["900"],
+      dark: colors["gray"]["800"],
+      light: colors["gray"]["25"],
+      contrastText: colors["global"]["white"],
     },
     error: {
-      main: "#C8102E",
-      dark: "#830419",
-      light: "#FAE6E8",
-      contrastText: "#FFFFFF",
+      main: colors["red"]["500"],
+      dark: colors["red"]["700"],
+      light: colors["red"]["25"],
+      contrastText: colors["global"]["white"],
     },
     success: {
-      main: "#198402",
-      dark: "#177802",
-      light: "#EDF5EB",
-      contrastText: "#FFFFFF",
+      main: colors["green"]["500"],
+      dark: colors["green"]["600"],
+      light: colors["green"]["25"],
+      contrastText: colors["global"]["white"],
     },
     info: {
-      main: "#176F98",
-      dark: "#124C76",
-      light: "#E9F5FB",
-      contrastText: "#FFFFFF",
+      main: colors["lightblue"]["700"],
+      dark: colors["lightblue"]["800"],
+      light: colors["lightblue"]["25"],
+      contrastText: colors["global"]["white"],
     },
     warning: {
-      main: "#B54708",
-      dark: "#93370D",
-      light: "#FFF2CC",
-      contrastText: "#FFFFFF",
+      main: colors["amber"]["700"],
+      dark: colors["amber"]["800"],
+      light: colors["amber"]["50"],
+      contrastText: colors["global"]["white"],
     },
     text: {
-      primary: "#0B0C0D",
-      secondary: "#3E4041",
-      placeholder: "#636769",
+      primary: colors["gray"]["900"],
+      secondary: colors["gray"]["600"],
+      disabled: colors["gray"]["300"],
+      placeholder: colors["gray"]["300"],
+      white: colors["global"]["white"],
+      brand: {
+        primary: colors["blue"]["600"],
+        primaryHover: colors["blue"]["700"],
+      },
+      info: {
+        primary: colors["lightblue"]["600"],
+        primaryHover: colors["lightblue"]["700"],
+      },
+      neutral: {
+        primary: colors["gray"]["700"],
+        primaryHover: colors["gray"]["800"],
+      },
+      success: {
+        primary: colors["green"]["600"],
+        primaryHover: colors["green"]["700"],
+      },
+      warning: {
+        primary: colors["amber"]["800"],
+        primaryHover: colors["amber"]["900"],
+      },
+      error: {
+        primary: colors["red"]["600"],
+        primaryHover: colors["red"]["700"],
+      },
+    },
+    foreground: {
+      primary: colors["gray"]["800"],
+      secondary: colors["gray"]["600"],
+      tertiary: colors["gray"]["300"],
+      quarterary: colors["gray"]["200"],
+      white: colors["global"]["white"],
+      disabled: colors["gray"]["300"],
+      placeholder: colors["gray"]["300"],
+      brand: {
+        primary: colors["blue"]["600"],
+        secondary: colors["blue"]["500"],
+      },
+      error: {
+        primary: colors["red"]["600"],
+        secondary: colors["red"]["500"],
+      },
+      warning: {
+        primary: colors["amber"]["700"],
+        secondary: colors["amber"]["600"],
+      },
+      success: {
+        primary: colors["green"]["600"],
+        secondary: colors["green"]["500"],
+      },
+      info: {
+        primary: colors["lightblue"]["700"],
+        secondary: colors["lightblue"]["600"],
+      },
     },
     background: {
-      secondary: "#F8F8F8",
-      tertiary: "#F1F2F2",
+      primary: colors["global"]["white"],
+      secondary: colors["gray"]["25"],
+      tertiary: colors["gray"]["50"],
+      disabled: colors["gray"]["50"],
+      overlay: colors["gray"]["800"],
+      brand: {
+        primary: colors["blue"]["25"],
+        solid: colors["blue"]["500"],
+      },
+      error: {
+        primary: colors["red"]["25"],
+        solid: colors["red"]["700"],
+      },
+      warning: {
+        primary: colors["amber"]["50"],
+        solid: colors["amber"]["700"],
+      },
+      success: {
+        primary: colors["green"]["25"],
+        solid: colors["green"]["700"],
+      },
+      info: {
+        primary: colors["lightblue"]["25"],
+        solid: colors["lightblue"]["600"],
+      },
     },
     border: {
-      primary: "#878A8D",
-      secondary: "#C3C6CC",
+      primary: colors["gray"]["300"],
+      secondary: colors["gray"]["200"],
+      tertiary: colors["gray"]["100"],
+      disabled: colors["gray"]["100"],
+      brand: {
+        primary: colors["blue"]["300"],
+        secondary: colors["blue"]["100"],
+        tertiary: colors["blue"]["50"],
+        solid: colors["blue"]["600"],
+      },
+      neutral: {
+        primary: colors["gray"]["400"],
+        secondary: colors["gray"]["300"],
+        tertiary: colors["gray"]["100"],
+        solid: colors["gray"]["600"],
+      },
+      error: {
+        primary: colors["red"]["400"],
+        secondary: colors["red"]["200"],
+        tertiary: colors["red"]["50"],
+        solid: colors["red"]["600"],
+      },
+      warning: {
+        primary: colors["amber"]["600"],
+        secondary: colors["amber"]["300"],
+        tertiary: colors["amber"]["100"],
+        solid: colors["amber"]["600"],
+      },
+      success: {
+        primary: colors["green"]["400"],
+        secondary: colors["green"]["200"],
+        tertiary: colors["green"]["50"],
+        solid: colors["green"]["600"],
+      },
+      info: {
+        primary: colors["lightblue"]["400"],
+        secondary: colors["lightblue"]["300"],
+        tertiary: colors["lightblue"]["50"],
+        solid: colors["lightblue"]["600"],
+      },
     },
     util: {
       gridRowHover: "#E3E4E5",
-    },
-    extendedColors: {
-      primary: {
-        outlinedBorder: "#A2C5F2",
-        outlinedText: "#1D6BCD",
-        outlinedTextHover: "#1858A8",
-      },
-      secondary: {
-        outlinedBorder: "#D8D9DA",
-        outlinedText: "#3E4041",
-        outlinedTextHover: "#252628",
-      },
-      error: {
-        outlinedBorder: "#EB8491",
-        outlinedText: "#A50722",
-        outlinedTextHover: "#830419",
-      },
-      warning: {
-        outlinedBorder: "#FEC84B",
-        outlinedText: "#93370D",
-        outlinedTextHover: "#4E1D09",
-      },
-      info: {
-        outlinedBorder: "#6ABDE4",
-        outlinedText: "#1273B8",
-        outlinedTextHover: "#176F98",
-      },
-      success: {
-        outlinedBorder: "#95C68B",
-        outlinedText: "#177802",
-        outlinedTextHover: "#125E01",
-      },
     },
   },
 });
@@ -203,8 +417,8 @@ theme = createTheme(theme, {
 });
 
 const getColorFromPalette = (theme: Theme, color: ButtonProps["color"]) =>
-  // Ignore 'inherit' prop value and treat it as primary instead
-  theme.palette[!color || color === "inherit" ? "primary" : color];
+  // Ignore 'inherit' prop value and treat it as brand instead
+  theme.palette[!color || color === "inherit" ? "brand" : color];
 
 export const BldrThemeProvider = ({ children }: PropsWithChildren) => {
   return (
@@ -220,14 +434,6 @@ export const BldrThemeProvider = ({ children }: PropsWithChildren) => {
                     color: theme.palette.text.placeholder,
                     opacity: 1,
                   },
-                },
-              },
-            },
-            // Adjust helper text positioning for TextField
-            MuiFormHelperText: {
-              styleOverrides: {
-                root: {
-                  marginLeft: "0px",
                 },
               },
             },
@@ -277,9 +483,33 @@ export const BldrThemeProvider = ({ children }: PropsWithChildren) => {
                 },
               },
             },
+            MuiAlert: {
+              defaultProps: {
+                variant: "outlined",
+                iconMapping: {
+                  success: <CheckCircleOutline fontSize="inherit" />,
+                },
+              },
+              styleOverrides: {
+                root: {
+                  variants: [
+                    ...(["error", "warning", "info", "success"] as const).map(
+                      (color) => ({
+                        props: { colorSeverity: color, variant: "standard" },
+                        style: {
+                          backgroundColor: theme.palette[color].light,
+                          color: theme.palette.text[color].primary,
+                        },
+                      }),
+                    ),
+                  ],
+                },
+              },
+            },
             MuiButton: {
               defaultProps: {
                 disableRipple: true,
+                color: "brand",
               },
               styleOverrides: {
                 root: ({ ownerState }: { ownerState: ButtonProps }) => ({
@@ -314,8 +544,8 @@ export const BldrThemeProvider = ({ children }: PropsWithChildren) => {
               variants: [
                 ...(
                   [
-                    "primary",
-                    "secondary",
+                    "brand",
+                    "neutral",
                     "error",
                     "warning",
                     "info",
@@ -326,21 +556,19 @@ export const BldrThemeProvider = ({ children }: PropsWithChildren) => {
                   style: {
                     // Leverage CSS vars used by internal Button component to override button colors
                     // https://github.com/mui/material-ui/blob/95fcfbe9e25d5d93be5ba5e4f771893b2a5c8b50/packages/mui-material/src/Button/Button.js#L171-L196
-                    "--variant-textColor":
-                      theme.palette.extendedColors[color].outlinedText,
+                    "--variant-textColor": theme.palette.text[color].primary,
                     "--variant-outlinedColor":
-                      theme.palette.extendedColors[color].outlinedText,
+                      theme.palette.text[color].primary,
                     "--variant-outlinedBorder":
-                      theme.palette.extendedColors[color].outlinedBorder,
+                      theme.palette.border[color].secondary,
                     "&:hover": {
                       "--variant-outlinedBorder":
-                        theme.palette.extendedColors[color].outlinedBorder,
+                        theme.palette.border[color].secondary,
                       "--variant-outlinedBg": theme.palette[color].light,
                       "--variant-textBg": theme.palette[color].light,
-                      "--variant-textColor":
-                        theme.palette.extendedColors[color].outlinedTextHover,
+                      "--variant-textColor": theme.palette.text[color].primary,
                       "--variant-outlinedColor":
-                        theme.palette.extendedColors[color].outlinedTextHover,
+                        theme.palette.text[color].primary,
                     },
                   },
                 })),
