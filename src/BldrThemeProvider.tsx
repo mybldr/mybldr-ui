@@ -9,6 +9,7 @@ import {
   Theme,
   buttonClasses,
   SimplePaletteColorOptions,
+  alertClasses,
 } from "@mui/material";
 import { PropsWithChildren } from "react";
 import colors from "./colors.json";
@@ -485,23 +486,58 @@ export const BldrThemeProvider = ({ children }: PropsWithChildren) => {
             },
             MuiAlert: {
               defaultProps: {
-                variant: "outlined",
                 iconMapping: {
                   success: <CheckCircleOutline fontSize="inherit" />,
                 },
+                variant: "filled",
               },
               styleOverrides: {
+                action: {
+                  paddingTop: "0px",
+                  paddingRight: "4px",
+                  alignItems: "center",
+                  gap: "4px",
+                },
                 root: {
                   variants: [
-                    ...(["error", "warning", "info", "success"] as const).map(
-                      (color) => ({
-                        props: { colorSeverity: color, variant: "standard" },
+                    ...(
+                      ["error", "warning", "info", "success"] as const
+                    ).flatMap((color) => [
+                      {
+                        props: {
+                          colorSeverity: color,
+                          // The `filled` variant is reserved for the base Alert component
+                          variant: "filled",
+                        },
                         style: {
-                          backgroundColor: theme.palette[color].light,
+                          backgroundColor:
+                            theme.palette.background[color].primary,
+                          color: theme.palette.text[color].primary,
+                          fontWeight: theme.typography.fontWeightRegular,
+                          boxShadow:
+                            "0px 4px 8px -2px rgba(0, 0, 0, 0.10), 0px 2px 4px -2px rgba(0, 0, 0, 0.06);",
+                        },
+                      },
+                      {
+                        props: {
+                          colorSeverity: color,
+                          // The `standard` variant is reserved for the Banner component
+                          variant: "standard",
+                        },
+                        style: {
+                          [`& .${alertClasses.icon}`]: {
+                            fontSize: "18px",
+                            marginRight: "8px",
+                            padding: "9px 0px",
+                          },
+                          border: `1px solid ${theme.palette.border[color].tertiary}`,
+                          padding: "0px 8px",
+                          backgroundColor:
+                            theme.palette.background[color].primary,
                           color: theme.palette.text[color].primary,
                         },
-                      }),
-                    ),
+                      },
+                    ]),
                   ],
                 },
               },
