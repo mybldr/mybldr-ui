@@ -100,6 +100,10 @@ declare module "@mui/material/styles" {
       primary: string;
       solid: string;
     };
+    neutral: {
+      primary: string;
+      solid: string;
+    };
     error: {
       primary: string;
       solid: string;
@@ -166,6 +170,12 @@ declare module "@mui/material/styles" {
 declare module "@mui/material/styles/createTypography" {
   interface FontStyle {
     fontWeightSemibold?: number;
+  }
+}
+
+declare module "@mui/material/Alert" {
+  interface AlertPropsColorOverrides {
+    neutral: true;
   }
 }
 
@@ -307,6 +317,10 @@ let theme = createTheme({
         primary: colors["blue"]["25"],
         solid: colors["blue"]["500"],
       },
+      neutral: {
+        primary: colors["gray"]["25"],
+        solid: colors["gray"]["500"],
+      },
       error: {
         primary: colors["red"]["25"],
         solid: colors["red"]["700"],
@@ -417,10 +431,6 @@ theme = createTheme(theme, {
   },
 });
 
-const getColorFromPalette = (theme: Theme, color: ButtonProps["color"]) =>
-  // Ignore 'inherit' prop value and treat it as brand instead
-  theme.palette[!color || color === "inherit" ? "brand" : color];
-
 export const BldrThemeProvider = ({ children }: PropsWithChildren) => {
   return (
     <ThemeProvider
@@ -501,7 +511,13 @@ export const BldrThemeProvider = ({ children }: PropsWithChildren) => {
                 root: {
                   variants: [
                     ...(
-                      ["error", "warning", "info", "success"] as const
+                      [
+                        "error",
+                        "warning",
+                        "info",
+                        "success",
+                        "neutral",
+                      ] as const
                     ).flatMap((color) => [
                       {
                         props: {
@@ -559,9 +575,6 @@ export const BldrThemeProvider = ({ children }: PropsWithChildren) => {
                   "&:hover": {
                     boxShadow: "0px 1px 2px 0px rgba(0, 0, 0, 0.05)",
                   },
-                  "&:focus": {
-                    boxShadow: `${alpha(getColorFromPalette(theme, ownerState.color).main, 0.25)} 0 0 0 0.2rem`,
-                  },
                   [`&.${buttonClasses.sizeLarge} .${buttonClasses.icon} > *`]: {
                     fontSize: "18px",
                   },
@@ -590,6 +603,9 @@ export const BldrThemeProvider = ({ children }: PropsWithChildren) => {
                 ).map((color) => ({
                   props: { color },
                   style: {
+                    "&:focus": {
+                      boxShadow: `${alpha(theme.palette[color].main, 0.25)} 0 0 0 0.2rem`,
+                    },
                     // Leverage CSS vars used by internal Button component to override button colors
                     // https://github.com/mui/material-ui/blob/95fcfbe9e25d5d93be5ba5e4f771893b2a5c8b50/packages/mui-material/src/Button/Button.js#L171-L196
                     "--variant-textColor": theme.palette.text[color].primary,

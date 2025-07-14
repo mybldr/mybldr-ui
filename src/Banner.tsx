@@ -8,7 +8,7 @@ export interface BannerProps
   extends Omit<AlertProps, "variant" | "slots" | "slotProps"> {}
 
 export const Banner = forwardRef<HTMLDivElement, BannerProps>(
-  ({ onClose, action, closeText, severity = "success", ...props }, ref) => (
+  ({ onClose, action, closeText, severity = "neutral", ...props }, ref) => (
     <Alert
       ref={ref}
       severity={severity}
