@@ -139,7 +139,7 @@ export const PortaledDialog = ({
         <Button
           disabled={isLoadingOrPending}
           variant="outlined"
-          color="secondary"
+          color="neutral"
           onClick={(e) => onClose(e, "cancelClick")}
         >
           {dismissActionLabel}

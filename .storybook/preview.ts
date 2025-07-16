@@ -1,7 +1,7 @@
 import type { Preview } from "@storybook/react-vite";
-import { CssBaseline } from "@mui/material";
+import { CssBaseline, ThemeProvider } from "@mui/material";
 import { withThemeFromJSXProvider } from "@storybook/addon-themes";
-import { BldrThemeProvider } from "../src/BldrThemeProvider";
+import { theme } from "../src/theme";
 import "@fontsource/inter/400.css";
 import "@fontsource/inter/500.css";
 import "@fontsource/inter/600.css";
@@ -9,7 +9,8 @@ import "@fontsource/inter/700.css";
 
 export const decorators = [
   withThemeFromJSXProvider({
-    Provider: BldrThemeProvider,
+    themes: { theme },
+    Provider: ThemeProvider,
     GlobalStyles: CssBaseline,
   }),
 ];
