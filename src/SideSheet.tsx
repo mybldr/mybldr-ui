@@ -128,7 +128,7 @@ export const PortaledSideSheet = ({
           <Button
             disabled={isLoadingOrPending}
             variant="outlined"
-            color="secondary"
+            color="neutral"
             {...secondaryAction}
             onClick={
               secondaryAction.onClick
