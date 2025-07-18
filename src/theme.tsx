@@ -57,7 +57,7 @@ declare module "@mui/material/styles" {
     primary: string;
     secondary: string;
     tertiary: string;
-    quarterary: string;
+    quaternary: string;
     white: string;
     disabled: string;
     placeholder: string;
@@ -270,13 +270,13 @@ let theme = createTheme({
       },
     },
     foreground: {
-      primary: colors["gray"]["800"],
-      secondary: colors["gray"]["600"],
-      tertiary: colors["gray"]["300"],
-      quarterary: colors["gray"]["200"],
+      primary: colors["gray"]["900"],
+      secondary: colors["gray"]["700"],
+      tertiary: colors["gray"]["600"],
+      quaternary: colors["gray"]["500"],
       white: colors["global"]["white"],
       disabled: colors["gray"]["300"],
-      placeholder: colors["gray"]["300"],
+      placeholder: colors["gray"]["500"],
       brand: {
         primary: colors["blue"]["600"],
         secondary: colors["blue"]["500"],

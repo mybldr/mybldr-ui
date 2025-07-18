@@ -6,7 +6,7 @@ export interface IconButtonProps extends Omit<ButtonProps, "children"> {
   icon: React.ReactNode;
 }
 
-const StyledButton = styled(Button)({
+const StyledButton = styled(Button)(({ theme }) => ({
   minWidth: "unset",
   [`& .${svgIconClasses.root}`]: {
     fontSize: "inherit",
@@ -14,6 +14,18 @@ const StyledButton = styled(Button)({
   padding: "8px",
   fontSize: "20px",
   variants: [
+    {
+      props: { color: "neutral", variant: "text" },
+      style: {
+        color: theme.vars.palette.foreground.quaternary,
+      },
+    },
+    {
+      props: { color: "neutral", variant: "outlined" },
+      style: {
+        color: theme.vars.palette.foreground.quaternary,
+      },
+    },
     {
       props: { size: "large" },
       style: {
@@ -33,7 +45,7 @@ const StyledButton = styled(Button)({
       },
     },
   ],
-});
+}));
 
 export const IconButton = ({
   loading,
