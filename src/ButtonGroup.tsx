@@ -24,7 +24,6 @@ export const ButtonGroup = ({
   orientation = "horizontal",
   disabled = false,
 }: ButtonGroupProps) => {
-  // Only allow up to 3 buttons (preserving original behavior)
   const childArray = Children.toArray(children)
     .filter(isValidElement)
 
