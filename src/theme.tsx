@@ -6,6 +6,7 @@ import {
   buttonClasses,
   SimplePaletteColorOptions,
   alertClasses,
+  buttonGroupClasses
 } from "@mui/material";
 import type {} from "@mui/material/themeCssVarsAugmentation";
 import colors from "./colors.json";
@@ -177,6 +178,18 @@ declare module "@mui/material/Button" {
     neutral: true;
   }
   interface ButtonPropsSizeOverrides {
+    xsmall: true;
+  }
+}
+
+declare module "@mui/material/ButtonGroup" {
+  interface ButtonGroupPropsColorOverrides {
+    primary: false;
+    secondary: false;
+    brand: true;
+    neutral: true;
+  }
+  interface ButtonGroupPropsSizeOverrides {
     xsmall: true;
   }
 }
@@ -644,6 +657,94 @@ theme = createTheme(theme, {
         },
       ],
     },
+    MuiButtonGroup: {
+        defaultProps: {
+          disableRipple: true,
+          color: "brand",
+        },
+        styleOverrides: {
+          root: {
+            boxShadow: "none",
+          }
+        },
+        variants: [
+          ...(
+            ["brand", "neutral", "error", "warning", "info", "success"] as const
+          ).map((color) => ({
+            props: { color, variant: "contained" },
+            style: {
+              [`& .${buttonGroupClasses.firstButton}, .${buttonGroupClasses.middleButton}`]: {
+                borderColor: theme.vars.palette.border[color].primary
+              },
+            },
+          })),
+          ...(
+            ["brand", "neutral", "error", "warning", "info", "success"] as const
+          ).map((color) => ({
+            props: { color },
+            style: {
+              [`&:focus, .${buttonGroupClasses.grouped}:focus`]: {
+                boxShadow: `${alpha(theme.palette[color].main, 0.25)} 0 0 0 0.2rem`,
+              }
+            },
+          })),
+          {
+            props: { size: "large", variant: "outlined" },
+            style: {
+              [`> *:not(:first-child):not(:last-child)`]: {
+                paddingLeft: "16px",
+                paddingRight: "16px",
+              },
+              [`> *:first-child`]: {
+                paddingRight: "16px",
+              },
+              [`> *:last-child`]: {
+                paddingLeft: "16px",
+              },
+              [`> .icon-button`]: {
+                paddingLeft: "9.5px",
+                paddingRight: "9.5px",
+              }
+            },
+          },
+          {
+            props: { size: "medium", variant: "outlined" },
+            style: {
+              [`> *:not(:first-child):not(:last-child)`]: {
+                paddingLeft: "12px",
+                paddingRight: "12px",
+              },
+              [`> *:first-child`]: {
+                paddingRight: "12px",
+              },
+              [`> *:last-child`]: {
+                paddingLeft: "12px",
+              },
+              [`> .icon-button`]: {
+                padding: "7px 9.5px"
+              }
+            },
+          },
+          {
+            props: { size: "small", variant: "outlined" },
+            style: {
+              [`> *:not(:first-child):not(:last-child)`]: {
+                paddingLeft: "12px",
+                paddingRight: "12px",
+              },
+              [`> *:first-child`]: {
+                paddingRight: "12px",
+              },
+              [`> *:last-child`]: {
+                paddingLeft: "12px",
+              },
+              [`> .icon-button`]: {
+                padding: "7px 9.5px"
+              }
+            },
+          },
+        ],
+      },
   },
 });
 

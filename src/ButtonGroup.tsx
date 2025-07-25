@@ -5,7 +5,7 @@ import { Button, ButtonProps } from "./Button";
 export interface ButtonGroupProps {
   children: ReactElement<ButtonProps>[] | ReactElement<ButtonProps>;
   variant?: "text" | "outlined" | "contained";
-  color?: "inherit" | "primary" | "secondary" | "success" | "error" | "info" | "warning";
+  color?: "inherit" | "brand" | "neutral" | "success" | "error" | "info" | "warning";
   size?: "small" | "medium" | "large";
   orientation?: "horizontal" | "vertical";
   disabled?: boolean;
@@ -17,7 +17,7 @@ export interface ButtonGroupProps {
 export const ButtonGroup = ({
   children,
   variant = "contained",
-  color = "primary",
+  color = "brand",
   size = "medium",
   className = "",
   style = {},
