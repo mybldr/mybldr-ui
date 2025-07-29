@@ -6,7 +6,7 @@ export interface ButtonGroupProps {
   children: ReactElement<ButtonProps>[] | ReactElement<ButtonProps>;
   variant?: "text" | "outlined" | "contained";
   color?: "inherit" | "brand" | "neutral" | "success" | "error" | "info" | "warning";
-  size?: "small" | "medium" | "large";
+  size?: "xsmall" | "small" | "medium" | "large";
   orientation?: "horizontal" | "vertical";
   disabled?: boolean;
   className?: string;

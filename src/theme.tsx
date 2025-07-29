@@ -559,6 +559,7 @@ theme = createTheme(theme, {
           fontWeight: theme.typography.fontWeightSemibold,
           lineHeight: "16px",
           boxShadow: "none",
+          minWidth: "48px",
           "&:hover": {
             boxShadow: "0px 1px 2px 0px rgba(0, 0, 0, 0.05)",
           },
@@ -614,6 +615,7 @@ theme = createTheme(theme, {
           style: {
             fontSize: "14px",
             padding: "8px 12px",
+            lineHeight: "20px",
           },
         },
         {
@@ -685,9 +687,36 @@ theme = createTheme(theme, {
             style: {
               [`&:focus, .${buttonGroupClasses.grouped}:focus`]: {
                 boxShadow: `${alpha(theme.palette[color].main, 0.25)} 0 0 0 0.2rem`,
+              },
+              [`> .icon-button`]: {
+                minWidth: "0px",
               }
             },
           })),
+          {
+            props: { size: "large"},
+            style: {
+              [`> .icon-button`]: {
+                minWidth: "40px",
+              }
+            },
+          },
+          {
+            props: { size: "small"},
+            style: {
+              [`> .icon-button`]: {
+                padding: "6px",
+              }
+            },
+          },
+          {
+            props: { size: "xsmall"},
+            style: {
+              [`> .icon-button`]: {
+                padding: "4px",
+              }
+            },
+          },
           {
             props: { size: "large", variant: "outlined" },
             style: {
@@ -721,7 +750,7 @@ theme = createTheme(theme, {
                 paddingLeft: "12px",
               },
               [`> .icon-button`]: {
-                padding: "7px 9.5px"
+                padding: "7px 7.5px",
               }
             },
           },
@@ -739,7 +768,25 @@ theme = createTheme(theme, {
                 paddingLeft: "12px",
               },
               [`> .icon-button`]: {
-                padding: "7px 9.5px"
+                padding: "5px 5.5px"
+              }
+            },
+          },
+          {
+            props: { size: "xsmall", variant: "outlined" },
+            style: {
+              [`> *:not(:first-child):not(:last-child)`]: {
+                paddingLeft: "8px",
+                paddingRight: "8px",
+              },
+              [`> *:first-child`]: {
+                paddingRight: "8px",
+              },
+              [`> *:last-child`]: {
+                paddingLeft: "8px",
+              },
+              [`> .icon-button`]: {
+                padding: "3px 3.5px"
               }
             },
           },

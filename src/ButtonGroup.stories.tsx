@@ -11,6 +11,11 @@ const meta = {
     layout: "centered",
   },
   tags: ["autodocs"],
+  argTypes: {
+    size: {
+      options: ["xsmall", "small", "medium", "large"],
+    },
+  },
 } satisfies Meta<typeof ButtonGroup>;
 
 export default meta;
