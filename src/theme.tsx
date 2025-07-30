@@ -11,7 +11,6 @@ import {
 } from "@mui/material";
 import type {} from "@mui/material/themeCssVarsAugmentation";
 import colors from "./colors.json";
-import { isValidElement } from "react";
 
 declare module "@mui/material/styles" {
   interface BorderColor {
@@ -757,7 +756,7 @@ theme = createTheme(theme, {
         // This groups of styles fixes a spacing issues with the outlined variant button group
         // With text and contained variants, a 1px border is inserted in between each button
         // For outlined variants, a -1px margin is applied to prevent borders from overlapping
-        // These horizontal discrepancies are correct by modifiying padding on the outlined button
+        // These horizontal discrepancies are correct by modifying padding on the outlined button
         {
           props: { size: "large", variant: "outlined" },
           style: {

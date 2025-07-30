@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { ButtonGroup } from "@mui/material";
+import { ButtonGroup } from "./ButtonGroup";
 import { Button } from "./Button";
 import { IconButton } from "./IconButton";
 import { ArrowDropDown, HouseOutlined } from "@mui/icons-material";
