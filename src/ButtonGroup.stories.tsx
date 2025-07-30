@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { ButtonGroup } from "./ButtonGroup";
+import { ButtonGroup } from "@mui/material";
 import { Button } from "./Button";
 import { IconButton } from "./IconButton";
 import { ArrowDropDown, HouseOutlined } from "@mui/icons-material";
@@ -11,11 +11,6 @@ const meta = {
     layout: "centered",
   },
   tags: ["autodocs"],
-  argTypes: {
-    size: {
-      options: ["xsmall", "small", "medium", "large"],
-    },
-  },
 } satisfies Meta<typeof ButtonGroup>;
 
 export default meta;
@@ -39,19 +34,25 @@ export const LoadingButtonGroup: Story = {
     children: [
       <Button
         key="1"
-        onClick={async () => await new Promise((resolve) => setTimeout(resolve, 1000))}
+        onClick={async () =>
+          await new Promise((resolve) => setTimeout(resolve, 1000))
+        }
       >
         Label
       </Button>,
       <Button
         key="2"
-        onClick={async () => await new Promise((resolve) => setTimeout(resolve, 1000))}
+        onClick={async () =>
+          await new Promise((resolve) => setTimeout(resolve, 1000))
+        }
       >
         Label
       </Button>,
       <Button
         key="3"
-        onClick={async () => await new Promise((resolve) => setTimeout(resolve, 1000))}
+        onClick={async () =>
+          await new Promise((resolve) => setTimeout(resolve, 1000))
+        }
       >
         Label
       </Button>,
@@ -64,9 +65,13 @@ export const LoadingButtonGroup: Story = {
 export const WithIcons: Story = {
   args: {
     children: [
-      <Button key="1" startIcon={<HouseOutlined />}>Label</Button>,
+      <Button key="1" startIcon={<HouseOutlined />}>
+        Label
+      </Button>,
       <Button key="2">Label</Button>,
-      <Button key="3" endIcon={<HouseOutlined />}>Label</Button>,
+      <Button key="3" endIcon={<HouseOutlined />}>
+        Label
+      </Button>,
     ],
     variant: "outlined",
     size: "large",
