@@ -1,72 +1,14 @@
-import { styled, svgIconClasses } from "@mui/material";
+import { forwardRef } from "react";
 import { Button, ButtonProps } from "./Button";
-import { useIsPromisePending } from "./useIsPromisePending";
 
 export interface IconButtonProps extends Omit<ButtonProps, "children"> {
   icon: React.ReactNode;
 }
 
-const StyledButton = styled(Button)(({ theme }) => ({
-  minWidth: "unset",
-  [`& .${svgIconClasses.root}`]: {
-    fontSize: "inherit",
-  },
-  padding: "8px",
-  fontSize: "20px",
-  variants: [
-    {
-      props: { color: "neutral", variant: "text" },
-      style: {
-        color: theme.vars.palette.foreground.quaternary,
-      },
-    },
-    {
-      props: { color: "neutral", variant: "outlined" },
-      style: {
-        color: theme.vars.palette.foreground.quaternary,
-      },
-    },
-    {
-      props: { size: "large" },
-      style: {
-        fontSize: "24px",
-      },
-    },
-    {
-      props: { size: "small" },
-      style: {
-        padding: "6px",
-      },
-    },
-    {
-      props: { size: "xsmall" },
-      style: {
-        padding: "4px",
-      },
-    },
-  ],
-}));
-
-export const IconButton = ({
-  loading,
-  onClick,
-  icon,
-  variant = "text",
-  color = "neutral",
-  ...props
-}: IconButtonProps) => {
-  const [isPending, observePromise] = useIsPromisePending();
-  const isLoading = isPending || loading;
-
-  return (
-    <StyledButton
-      {...props}
-      variant={variant}
-      loading={isLoading}
-      color={color}
-      onClick={onClick ? observePromise(onClick) : onClick}
-    >
+export const IconButton = forwardRef<HTMLButtonElement, IconButtonProps>(
+  ({ icon, ...props }, ref) => (
+    <Button ref={ref} {...props}>
       {icon}
-    </StyledButton>
-  );
-};
+    </Button>
+  ),
+);

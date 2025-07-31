@@ -6,6 +6,8 @@ import {
   buttonClasses,
   SimplePaletteColorOptions,
   alertClasses,
+  buttonGroupClasses,
+  svgIconClasses,
 } from "@mui/material";
 import type {} from "@mui/material/themeCssVarsAugmentation";
 import colors from "./colors.json";
@@ -177,6 +179,18 @@ declare module "@mui/material/Button" {
     neutral: true;
   }
   interface ButtonPropsSizeOverrides {
+    xsmall: true;
+  }
+}
+
+declare module "@mui/material/ButtonGroup" {
+  interface ButtonGroupPropsColorOverrides {
+    primary: false;
+    secondary: false;
+    brand: true;
+    neutral: true;
+  }
+  interface ButtonGroupPropsSizeOverrides {
     xsmall: true;
   }
 }
@@ -419,6 +433,14 @@ theme = createTheme(theme, {
   },
 });
 
+// The custom IconButton is built off of the Button component, so styles are tightly coupled.
+// The assumption is the IconButton has an MUI SVG icon component at the root.
+// IconButton styles are built into the root Button component overrides so that
+// props that are passed through the ButtonGroup component context are applied.
+// https://github.com/mui/material-ui/blob/422289f31474a7322aa97d7d291136b77c15b9b1/packages/mui-material/src/Button/Button.js#L506
+const ICON_BUTTON_SELECTOR = `:has(> .${svgIconClasses.root})`;
+const ICON_BUTTON_CLASS = `&${ICON_BUTTON_SELECTOR}`;
+
 theme = createTheme(theme, {
   components: {
     MuiOutlinedInput: {
@@ -546,6 +568,7 @@ theme = createTheme(theme, {
           fontWeight: theme.typography.fontWeightSemibold,
           lineHeight: "16px",
           boxShadow: "none",
+          minWidth: "48px",
           "&:hover": {
             boxShadow: "0px 1px 2px 0px rgba(0, 0, 0, 0.05)",
           },
@@ -560,6 +583,12 @@ theme = createTheme(theme, {
           },
           [`&.MuiButton-sizeXsmall .${buttonClasses.icon} > *`]: {
             fontSize: "14px",
+          },
+          [`${ICON_BUTTON_CLASS} > .${svgIconClasses.root}`]: {
+            fontSize: "inherit",
+          },
+          [ICON_BUTTON_CLASS]: {
+            minWidth: "unset",
           },
         },
       },
@@ -589,11 +618,31 @@ theme = createTheme(theme, {
           },
         })),
         {
+          props: { color: "neutral", variant: "text" },
+          style: {
+            [ICON_BUTTON_CLASS]: {
+              color: theme.vars.palette.foreground.quaternary,
+            },
+          },
+        },
+        {
+          props: { color: "neutral", variant: "outlined" },
+          style: {
+            [ICON_BUTTON_CLASS]: {
+              color: theme.vars.palette.foreground.quaternary,
+            },
+          },
+        },
+        {
           props: { size: "large" },
           style: {
             fontSize: "16px",
             padding: "8px 16px",
             lineHeight: "24px",
+            [ICON_BUTTON_CLASS]: {
+              padding: "8px",
+              fontSize: "24px",
+            },
           },
         },
         {
@@ -601,6 +650,11 @@ theme = createTheme(theme, {
           style: {
             fontSize: "14px",
             padding: "8px 12px",
+            lineHeight: "20px",
+            [ICON_BUTTON_CLASS]: {
+              padding: "8px",
+              fontSize: "20px",
+            },
           },
         },
         {
@@ -608,6 +662,10 @@ theme = createTheme(theme, {
           style: {
             fontSize: "12px",
             padding: "8px 12px",
+            [ICON_BUTTON_CLASS]: {
+              padding: "6px",
+              fontSize: "20px",
+            },
           },
         },
         {
@@ -615,6 +673,10 @@ theme = createTheme(theme, {
           style: {
             fontSize: "12px",
             padding: "6px 8px",
+            [ICON_BUTTON_CLASS]: {
+              padding: "4px",
+              fontSize: "20px",
+            },
           },
         },
         // Outlined variants need 1px less of padding to account for added 1px border
@@ -622,24 +684,161 @@ theme = createTheme(theme, {
           props: { size: "large", variant: "outlined" },
           style: {
             padding: "7px 15px",
+            [ICON_BUTTON_CLASS]: {
+              padding: "7px",
+            },
           },
         },
         {
           props: { size: "medium", variant: "outlined" },
           style: {
             padding: "7px 11px",
+            [ICON_BUTTON_CLASS]: {
+              padding: "7px",
+            },
           },
         },
         {
           props: { size: "small", variant: "outlined" },
           style: {
             padding: "7px 11px",
+            [ICON_BUTTON_CLASS]: {
+              padding: "5px",
+            },
           },
         },
         {
           props: { size: "xsmall", variant: "outlined" },
           style: {
             padding: "5px 7px",
+            [ICON_BUTTON_CLASS]: {
+              padding: "3px",
+            },
+          },
+        },
+      ],
+    },
+    MuiButtonGroup: {
+      defaultProps: {
+        disableRipple: true,
+        color: "brand",
+      },
+      styleOverrides: {
+        root: {
+          boxShadow: "none",
+          [`& .${buttonGroupClasses.grouped}`]: {
+            minWidth: "unset",
+          },
+        },
+      },
+      variants: [
+        ...(
+          ["brand", "neutral", "error", "warning", "info", "success"] as const
+        ).flatMap((color) => [
+          {
+            props: { color, variant: "contained" },
+            style: {
+              [`& .${buttonGroupClasses.firstButton}, & .${buttonGroupClasses.middleButton}`]:
+                {
+                  borderColor: theme.vars.palette.border[color].primary,
+                },
+            },
+          },
+          {
+            props: { color },
+            style: {
+              [`& .${buttonGroupClasses.grouped}:focus`]: {
+                boxShadow: `${alpha(theme.palette[color].main, 0.25)} 0 0 0 0.2rem`,
+              },
+            },
+          },
+        ]),
+        // This groups of styles fixes a spacing issues with the outlined variant button group
+        // With text and contained variants, a 1px border is inserted in between each button
+        // For outlined variants, a -1px margin is applied to prevent borders from overlapping
+        // These horizontal discrepancies are correct by modifying padding on the outlined button
+        {
+          props: { size: "large", variant: "outlined" },
+          style: {
+            [`& .${buttonGroupClasses.firstButton}, & .${buttonGroupClasses.middleButton}`]:
+              {
+                paddingRight: "16px",
+              },
+            [`& .${buttonGroupClasses.middleButton}, & .${buttonGroupClasses.lastButton}`]:
+              {
+                paddingLeft: "16px",
+              },
+            [`& .${buttonGroupClasses.firstButton}${ICON_BUTTON_SELECTOR}, & .${buttonGroupClasses.middleButton}${ICON_BUTTON_SELECTOR}`]:
+              {
+                paddingRight: "8px",
+              },
+            [`& .${buttonGroupClasses.middleButton}${ICON_BUTTON_SELECTOR}, & .${buttonGroupClasses.lastButton}${ICON_BUTTON_SELECTOR}`]:
+              {
+                paddingLeft: "8px",
+              },
+          },
+        },
+        {
+          props: { size: "medium", variant: "outlined" },
+          style: {
+            [`& .${buttonGroupClasses.firstButton}, & .${buttonGroupClasses.middleButton}`]:
+              {
+                paddingRight: "12px",
+              },
+            [`& .${buttonGroupClasses.middleButton}, & .${buttonGroupClasses.lastButton}`]:
+              {
+                paddingLeft: "12px",
+              },
+            [`& .${buttonGroupClasses.firstButton}${ICON_BUTTON_SELECTOR}, & .${buttonGroupClasses.middleButton}${ICON_BUTTON_SELECTOR}`]:
+              {
+                paddingRight: "8px",
+              },
+            [`& .${buttonGroupClasses.middleButton}${ICON_BUTTON_SELECTOR}, & .${buttonGroupClasses.lastButton}${ICON_BUTTON_SELECTOR}`]:
+              {
+                paddingLeft: "8px",
+              },
+          },
+        },
+        {
+          props: { size: "small", variant: "outlined" },
+          style: {
+            [`& .${buttonGroupClasses.firstButton}, & .${buttonGroupClasses.middleButton}`]:
+              {
+                paddingRight: "12px",
+              },
+            [`& .${buttonGroupClasses.middleButton}, & .${buttonGroupClasses.lastButton}`]:
+              {
+                paddingLeft: "12px",
+              },
+            [`& .${buttonGroupClasses.firstButton}${ICON_BUTTON_SELECTOR}, & .${buttonGroupClasses.middleButton}${ICON_BUTTON_SELECTOR}`]:
+              {
+                paddingRight: "6px",
+              },
+            [`& .${buttonGroupClasses.middleButton}${ICON_BUTTON_SELECTOR}, & .${buttonGroupClasses.lastButton}${ICON_BUTTON_SELECTOR}`]:
+              {
+                paddingLeft: "6px",
+              },
+          },
+        },
+        {
+          props: { size: "xsmall", variant: "outlined" },
+          style: {
+            [`& .${buttonGroupClasses.firstButton}, & .${buttonGroupClasses.middleButton}`]:
+              {
+                paddingRight: "8px",
+              },
+            [`& .${buttonGroupClasses.middleButton}, & .${buttonGroupClasses.lastButton}`]:
+              {
+                paddingLeft: "8px",
+              },
+            [`& .${buttonGroupClasses.firstButton}${ICON_BUTTON_SELECTOR}, & .${buttonGroupClasses.middleButton}${ICON_BUTTON_SELECTOR}`]:
+              {
+                paddingRight: "4px",
+              },
+            [`& .${buttonGroupClasses.middleButton}${ICON_BUTTON_SELECTOR}, & .${buttonGroupClasses.lastButton}${ICON_BUTTON_SELECTOR}`]:
+              {
+                paddingLeft: "4px",
+              },
           },
         },
       ],
